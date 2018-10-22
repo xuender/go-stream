@@ -6,11 +6,8 @@ import (
 
 // FindFirst returns the first element of this stream.
 func (s *Stream) FindFirst() (interface{}, error) {
-	if s.Error != nil {
-		return nil, s.Error
-	}
-	if s.empty {
-		return nil, errEmpty
+	if s.err != nil {
+		return nil, s.err
 	}
 
 	o := func(i *reflect.Value) (bool, *reflect.Value) { return true, i }

@@ -6,7 +6,7 @@ import (
 
 // Distinct returns a stream consisting of the distinct elements of this stream.
 func (s *Stream) Distinct() *Stream {
-	if s.Error != nil {
+	if s.err != nil {
 		return s
 	}
 
@@ -24,7 +24,7 @@ func (s *Stream) Distinct() *Stream {
 		_, err = s.evaluate(o)
 	}
 	if err != nil && err != errNotFound {
-		s.Error = err
+		s.err = err
 		return s
 	}
 	s.funcs = []Operation{}

@@ -82,22 +82,6 @@ peek2: 4
 2 <nil>
 ```
 
-## Reuse
-```go
-s := stream.NewEmpty().Filter(func(i int) bool { return i > 1 })
-
-count, err := s.Set([]int{1, 2, 3, 4, 5}).Count()
-fmt.Println(count, err)
-
-first, err := s.Set([]int{1, 2, 3}).FindFirst()
-fmt.Println(first, err)
-```
-Output:
-```
-4 <nil>
-2 <nil>
-```
-
 ## Functions
 | Function | Type | State |
 | - | - | - |

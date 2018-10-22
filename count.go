@@ -4,11 +4,8 @@ import "reflect"
 
 // Count returns the count of elements in this stream.
 func (s *Stream) Count() (int, error) {
-	if s.Error != nil {
-		return 0, s.Error
-	}
-	if s.empty {
-		return 0, errEmpty
+	if s.err != nil {
+		return 0, s.err
 	}
 
 	count := 0

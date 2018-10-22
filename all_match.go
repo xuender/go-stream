@@ -7,11 +7,8 @@ import (
 
 // AllMatch returns whether all elements of this stream match the provided predicate.
 func (s *Stream) AllMatch(predicate interface{}) (bool, error) {
-	if s.Error != nil {
-		return false, s.Error
-	}
-	if s.empty {
-		return false, errEmpty
+	if s.err != nil {
+		return false, s.err
 	}
 	fn := reflect.ValueOf(predicate)
 	if fn.Kind() != reflect.Func {

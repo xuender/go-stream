@@ -15,7 +15,7 @@ func (s *Stream) Parallel() *Stream {
 }
 
 func (s *Stream) setParallel(p bool) *Stream {
-	if s.Error != nil {
+	if s.err != nil {
 		return s
 	}
 
@@ -28,7 +28,7 @@ func (s *Stream) setParallel(p bool) *Stream {
 		_, err = s.evaluate(o)
 	}
 	if err != nil && err != errNotFound {
-		s.Error = err
+		s.err = err
 		return s
 	}
 	s.funcs = []Operation{}

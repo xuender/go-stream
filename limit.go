@@ -6,11 +6,7 @@ import (
 
 // Limit returns a stream consisting of the elements of this stream.
 func (s *Stream) Limit(maxSize int) *Stream {
-	if s.Error != nil {
-		return s
-	}
-	if s.empty {
-		s.Error = errEmpty
+	if s.err != nil {
 		return s
 	}
 	if maxSize > s.value.Len() {
@@ -38,7 +34,7 @@ func (s *Stream) Limit(maxSize int) *Stream {
 		_, err = s.evaluate(o)
 	}
 	if err != nil && err != errNotFound {
-		s.Error = err
+		s.err = err
 		return s
 	}
 	s.funcs = []Operation{}

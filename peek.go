@@ -7,22 +7,22 @@ import (
 
 // Peek returns a stream consisting of the elements of this stream.
 func (s *Stream) Peek(action interface{}) *Stream {
-	if s.Error != nil {
+	if s.err != nil {
 		return s
 	}
 
 	s.funcs = append(s.funcs, func(i *reflect.Value) (bool, *reflect.Value) {
 		fn := reflect.ValueOf(action)
 		if fn.Kind() != reflect.Func {
-			s.Error = errors.New("Peek action type is not Fun")
+			s.err = errors.New("Peek action type is not Fun")
 			return true, i
 		}
 		if fn.Type().NumIn() != 1 {
-			s.Error = errors.New("Peek action's input parameter length is not one")
+			s.err = errors.New("Peek action's input parameter length is not one")
 			return true, i
 		}
 		if fn.Type().NumOut() != 0 {
-			s.Error = errors.New("Peek action's output parameter length is not zero")
+			s.err = errors.New("Peek action's output parameter length is not zero")
 			return true, i
 		}
 		var param [1]reflect.Value

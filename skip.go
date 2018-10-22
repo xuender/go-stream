@@ -7,11 +7,7 @@ import (
 // Skip returns a stream consisting of the remaining elements of this stream
 // after discarding the first `n` elements of the stream.
 func (s *Stream) Skip(n int) *Stream {
-	if s.Error != nil {
-		return s
-	}
-	if s.empty {
-		s.Error = errEmpty
+	if s.err != nil {
 		return s
 	}
 
@@ -43,7 +39,7 @@ func (s *Stream) Skip(n int) *Stream {
 		_, err = s.evaluate(o)
 	}
 	if err != nil && err != errNotFound {
-		s.Error = err
+		s.err = err
 		return s
 	}
 	s.funcs = []Operation{}
