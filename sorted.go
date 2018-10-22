@@ -35,7 +35,7 @@ func (s *Stream) Sorted() *Stream {
 		s.funcs = []func(*reflect.Value) (bool, *reflect.Value){}
 		return s
 	default:
-		s.err = errors.New("array type is not Slice or Array.")
+		s.err = errors.New("array type is not Slice or Array")
 		return s
 	}
 }

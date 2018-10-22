@@ -28,8 +28,8 @@ func (s *Stream) FindFirst() (interface{}, error) {
 				return a.Interface(), nil
 			}
 		}
-		return nil, errors.New("No find.")
+		return nil, errors.New("No find")
 	default:
-		return nil, errors.New("array type is not Slice or Array.")
+		return nil, errors.New("array type is not Slice or Array")
 	}
 }

@@ -19,11 +19,11 @@ func (s *Stream) Map(mapper interface{}) *Stream {
 			return false, i
 		}
 		if fn.Type().NumIn() != 1 {
-			s.err = errors.New("Map mapper's in params length is not one.")
+			s.err = errors.New("Map mapper's in params length is not one")
 			return false, i
 		}
 		if fn.Type().NumOut() != 1 {
-			s.err = errors.New("Map mapper's out params length is not one.")
+			s.err = errors.New("Map mapper's out params length is not one")
 			return false, i
 		}
 		var param [1]reflect.Value

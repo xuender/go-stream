@@ -4,7 +4,7 @@ import (
 	"reflect"
 )
 
-// Stream
+// Stream inspired in Java 8 Streams.
 type Stream struct {
 	value *reflect.Value
 	funcs []func(*reflect.Value) (bool, *reflect.Value)

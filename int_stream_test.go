@@ -2,7 +2,7 @@ package stream
 
 import "fmt"
 
-func ExampleNewintStream() {
+func Example_newintStream() {
 	arr := []int{7, 2, 3}
 	h, _ := newintStream(arr).
 		Filter(func(i int) bool { return i > 1 }).

@@ -14,19 +14,19 @@ func (s *Stream) Filter(predicate interface{}) *Stream {
 	s.funcs = append(s.funcs, func(i *reflect.Value) (bool, *reflect.Value) {
 		fn := reflect.ValueOf(predicate)
 		if fn.Kind() != reflect.Func {
-			s.err = errors.New("Filter predicate type is not function.")
+			s.err = errors.New("Filter predicate type is not function")
 			return false, i
 		}
 		if fn.Type().NumIn() != 1 {
-			s.err = errors.New("Filter predicate's in params length not one.")
+			s.err = errors.New("Filter predicate's in params length not one")
 			return false, i
 		}
 		if fn.Type().NumOut() != 1 {
-			s.err = errors.New("Filter predicate's out params length not one.")
+			s.err = errors.New("Filter predicate's out params length not one")
 			return false, i
 		}
 		if fn.Type().Out(0).Kind() != reflect.Bool {
-			s.err = errors.New("Filter predicate's out param type is not Bool.")
+			s.err = errors.New("Filter predicate's out param type is not Bool")
 			return false, i
 		}
 		var param [1]reflect.Value
