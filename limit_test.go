@@ -5,11 +5,14 @@ import (
 )
 
 func ExampleStream_Limit() {
-	New([]int{1, 2, 3}).
+	err := New([]int{1, 2, 3}).
 		Limit(2).
 		ForEach(func(i int) { fmt.Println(i) })
+
+	fmt.Println(err)
 
 	// Output:
 	// 1
 	// 2
+	// <nil>
 }
