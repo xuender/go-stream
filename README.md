@@ -100,6 +100,6 @@ peek2: 4
 | Limit | Intermediate operations, Stateful | √ |
 | Distinct | Intermediate operations, Stateful | √ |
 | Sorted | Intermediate operations, Stateful | √ |
-| Max | Terminal operations | |
-| Min | Terminal operations | |
+| Max | Terminal operations | √ |
+| Min | Terminal operations | √ |
 | FlatMap | Intermediate operations, Stateless | |

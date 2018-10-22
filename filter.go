@@ -26,7 +26,7 @@ func (s *Stream) Filter(predicate interface{}) *Stream {
 			return true, i
 		}
 		if fn.Type().Out(0).Kind() != reflect.Bool {
-			s.err = errors.New("Filter predicate's out param type is not Bool")
+			s.err = errors.New("Filter predicate's output parameter type is not Bool")
 			return true, i
 		}
 		var param [1]reflect.Value

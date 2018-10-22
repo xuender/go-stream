@@ -21,7 +21,7 @@ func (s *Stream) AllMatch(predicate interface{}) (bool, error) {
 		return false, errors.New("AllMatch predicate's output parameter length not one")
 	}
 	if fn.Type().Out(0).Kind() != reflect.Bool {
-		return false, errors.New("AllMatch predicate's out param type is not Bool")
+		return false, errors.New("AllMatch predicate's output parameter type is not Bool")
 	}
 
 	o := func(i *reflect.Value) (bool, *reflect.Value) {
