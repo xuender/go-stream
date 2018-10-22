@@ -7,8 +7,11 @@ import (
 
 // NoneMatch returns whether no elements of this stream match the provided predicate.
 func (s *Stream) NoneMatch(predicate interface{}) (bool, error) {
-	if s.err != nil {
-		return false, s.err
+	if s.Error != nil {
+		return false, s.Error
+	}
+	if s.empty {
+		return false, errEmpty
 	}
 	fn := reflect.ValueOf(predicate)
 	if fn.Kind() != reflect.Func {

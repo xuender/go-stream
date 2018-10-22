@@ -7,8 +7,11 @@ import (
 
 // ForEach performs an action for each element of this stream.
 func (s *Stream) ForEach(action interface{}) error {
-	if s.err != nil {
-		return s.err
+	if s.Error != nil {
+		return s.Error
+	}
+	if s.empty {
+		return errEmpty
 	}
 	fn := reflect.ValueOf(action)
 	if fn.Kind() != reflect.Func {

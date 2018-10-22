@@ -11,9 +11,31 @@ type valueCallBack struct {
 
 // Parallel returns an equivalent stream that is parallel.
 func (s *Stream) Parallel() *Stream {
-	s.parallel = true
+	return s.setParallel(true)
+}
+
+func (s *Stream) setParallel(p bool) *Stream {
+	if s.Error != nil {
+		return s
+	}
+
+	o := func(i *reflect.Value) (bool, *reflect.Value) { return false, i }
+
+	var err error
+	if s.parallel {
+		_, err = s.parallelEvaluate(o)
+	} else {
+		_, err = s.evaluate(o)
+	}
+	if err != nil && err != errNotFound {
+		s.Error = err
+		return s
+	}
+	s.funcs = []Operation{}
+	s.parallel = p
 	return s
 }
+
 func (s *Stream) parallelEvaluate(terminalOp Operation) (*reflect.Value, error) {
 	switch s.value.Kind() {
 	case reflect.Slice, reflect.Array:

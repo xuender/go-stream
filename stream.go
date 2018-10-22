@@ -9,9 +9,10 @@ import (
 type Stream struct {
 	value    *reflect.Value
 	funcs    []Operation
-	err      error
+	Error    error
 	parallel bool
 	stop     bool
+	empty    bool
 }
 
 // Operation terminal operation.
@@ -19,38 +20,34 @@ type Operation func(*reflect.Value) (bool, *reflect.Value)
 
 var errNotFound = errors.New("Not found")
 var errArrayTypeError = errors.New("array type is not Slice and Array")
-
-func (s *Stream) evaluate(terminalOp Operation) (*reflect.Value, error) {
-	switch s.value.Kind() {
-	case reflect.Slice, reflect.Array:
-		for i := 0; i < s.value.Len(); i++ {
-			a := s.value.Index(i)
-			ok := true
-			for _, f := range s.funcs {
-				if stop, t := f(&a); stop {
-					ok = false
-					break
-				} else {
-					a = *t
-				}
-			}
-			if ok {
-				if stop, e := terminalOp(&a); stop {
-					return e, nil
-				}
-			}
-		}
-		return nil, errNotFound
-	default:
-		return nil, errArrayTypeError
-	}
-}
+var errEmpty = errors.New("Stream is empty")
 
 // New returns a Stream.
 func New(array interface{}) *Stream {
 	v := reflect.ValueOf(array)
 	return &Stream{
-		value: &v,
-		funcs: []Operation{},
+		value:    &v,
+		funcs:    []Operation{},
+		parallel: false,
+		stop:     false,
+		empty:    false,
 	}
+}
+
+// NewEmpty returns a empty Stream.
+func NewEmpty() *Stream {
+	return &Stream{
+		funcs:    []Operation{},
+		parallel: false,
+		stop:     false,
+		empty:    true,
+	}
+}
+
+// Set data
+func (s *Stream) Set(i interface{}) *Stream {
+	v := reflect.ValueOf(i)
+	s.value = &v
+	s.empty = false
+	return s
 }

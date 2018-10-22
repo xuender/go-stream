@@ -6,7 +6,7 @@ import (
 
 // Sorted TODO
 func (s *Stream) Sorted() *Stream {
-	if s.err != nil {
+	if s.Error != nil {
 		return s
 	}
 	switch s.value.Kind() {
@@ -34,7 +34,7 @@ func (s *Stream) Sorted() *Stream {
 		s.funcs = []Operation{}
 		return s
 	default:
-		s.err = errArrayTypeError
+		s.Error = errArrayTypeError
 		return s
 	}
 }

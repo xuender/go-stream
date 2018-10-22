@@ -8,6 +8,7 @@ go get -u github.com/xuender/go-stream
 ```
 
 ## Usage
+Sequential stream:
 ```go
 package main
 
@@ -39,6 +40,7 @@ id:2 <nil>
 ```
 
 ## Parallel
+Parallel stream:
 ```go
 package main
 
@@ -82,13 +84,12 @@ peek2: 4
 
 ## Reuse
 ```go
-s := stream.New([]int{1, 2, 3, 4, 5}).
-  Filter(func(i int) bool { return i > 1 })
+s := stream.NewEmpty().Filter(func(i int) bool { return i > 1 })
 
-count, err := s.Count()
+count, err := s.Set([]int{1, 2, 3, 4, 5}).Count()
 fmt.Println(count, err)
 
-first, err := s.FindFirst()
+first, err := s.Set([]int{1, 2, 3}).FindFirst()
 fmt.Println(first, err)
 ```
 Output:
@@ -100,8 +101,8 @@ Output:
 ## Functions
 | Function | Type | State |
 | - | - | - |
-| Sequential | Intermediate operations, Stateful | |
-| Parallel | Intermediate operations, Stateful | √|
+| Sequential | Intermediate operations, Stateful | √ |
+| Parallel | Intermediate operations, Stateful | √ |
 | Filter | Intermediate operations, Stateless | √ |
 | Map | Intermediate operations, Stateless | √ |
 | Peek | Intermediate operations, Stateless | √ |
@@ -116,5 +117,5 @@ Output:
 | Distinct | Intermediate operations, Stateful | √ |
 | Max | Terminal operations | |
 | Min | Terminal operations | |
-| FlatMap | Intermediate operations, Stateless | |
 | Sorted | Intermediate operations, Stateful | |
+| FlatMap | Intermediate operations, Stateless | |
