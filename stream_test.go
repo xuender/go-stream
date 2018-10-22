@@ -33,5 +33,4 @@ func ExampleStream() {
 	// Output:
 	// 4 <nil>
 	// 2 <nil>
-
 }

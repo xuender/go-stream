@@ -28,13 +28,13 @@ func (s *Stream) ForEach(action interface{}) error {
 		return false, i
 	}
 
+	var err error
 	if s.parallel {
-		if _, err := s.parallelEvaluate(o); err != nil && err != errNotFound {
-			return err
-		}
-		return nil
+		_, err = s.parallelEvaluate(o)
+	} else {
+		_, err = s.evaluate(o)
 	}
-	if _, err := s.evaluate(o); err != nil && err != errNotFound {
+	if err != nil && err != errNotFound {
 		return err
 	}
 	return nil

@@ -109,10 +109,10 @@ Output:
 | NoneMatch | Terminal operations, short-circuiting | √ |
 | ForEach | Terminal operations | √ |
 | Count | Terminal operations | √ |
+| Skip | Intermediate operations, Stateful | √ |
+| Limit | Intermediate operations, Stateful | √ |
 | Max | Terminal operations | |
 | Min | Terminal operations | |
 | FlatMap | Intermediate operations, Stateless | |
 | Distinct | Intermediate operations, Stateful | |
-| Skip | Intermediate operations, Stateful | |
-| Limit | Intermediate operations, Stateful | |
 | Sorted | Intermediate operations, Stateful | |
