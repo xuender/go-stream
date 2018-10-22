@@ -90,9 +90,9 @@ peek2: 4
 | Peek | Intermediate operations, Stateless | √ |
 | FindFirst | Terminal operations, short-circuiting | √ |
 | ForEach | Terminal operations | √ |
+| Count | Terminal operations | √ |
 | Max | Terminal operations | |
 | Min | Terminal operations | |
-| Count | Terminal operations | |
 | AnyMatch | Terminal operations, short-circuiting | |
 | AllMatch | Terminal operations, short-circuiting | |
 | NoneMatch | Terminal operations, short-circuiting | |
