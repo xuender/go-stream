@@ -16,19 +16,19 @@ func (s *Stream) Map(mapper interface{}) *Stream {
 		fn := reflect.ValueOf(mapper)
 		if fn.Kind() != reflect.Func {
 			s.err = errors.New("Map mapper type is not function")
-			return false, i
+			return true, i
 		}
 		if fn.Type().NumIn() != 1 {
-			s.err = errors.New("Map mapper's in params length is not one")
-			return false, i
+			s.err = errors.New("Map mapper's input parameter length is not one")
+			return true, i
 		}
 		if fn.Type().NumOut() != 1 {
-			s.err = errors.New("Map mapper's out params length is not one")
-			return false, i
+			s.err = errors.New("Map mapper's output parameter length is not one")
+			return true, i
 		}
 		var param [1]reflect.Value
 		param[0] = *i
-		return true, &fn.Call(param[:])[0]
+		return false, &fn.Call(param[:])[0]
 	})
 
 	return s

@@ -17,11 +17,11 @@ func (s *Stream) Sorted() *Stream {
 			a := s.value.Index(i)
 			ok := true
 			for _, f := range s.funcs {
-				if o, v := f(&a); o {
-					a = *v
-				} else {
+				if stop, v := f(&a); stop {
 					ok = false
 					break
+				} else {
+					a = *v
 				}
 			}
 			if ok {
@@ -32,7 +32,7 @@ func (s *Stream) Sorted() *Stream {
 		// sort.Ints(na)
 		v := reflect.ValueOf(na)
 		s.value = &v
-		s.funcs = []func(*reflect.Value) (bool, *reflect.Value){}
+		s.funcs = []Operation{}
 		return s
 	default:
 		s.err = errors.New("array type is not Slice or Array")
