@@ -17,6 +17,9 @@ type Stream struct {
 // Operation terminal operation.
 type Operation func(*reflect.Value) (bool, *reflect.Value)
 
+var errNotFound = errors.New("Not found")
+var errArrayTypeError = errors.New("array type is not Slice and Array")
+
 func (s *Stream) evaluate(terminalOp Operation) (*reflect.Value, error) {
 	switch s.value.Kind() {
 	case reflect.Slice, reflect.Array:
@@ -37,13 +40,13 @@ func (s *Stream) evaluate(terminalOp Operation) (*reflect.Value, error) {
 				}
 			}
 		}
-		return nil, errors.New("No find")
+		return nil, errNotFound
 	default:
-		return nil, errors.New("array type is not Slice or Array")
+		return nil, errArrayTypeError
 	}
 }
 
-// New returns a sequential Stream.
+// New returns a Stream.
 func New(array interface{}) *Stream {
 	v := reflect.ValueOf(array)
 	return &Stream{

@@ -14,7 +14,7 @@ func (s *Stream) Filter(predicate interface{}) *Stream {
 	s.funcs = append(s.funcs, func(i *reflect.Value) (bool, *reflect.Value) {
 		fn := reflect.ValueOf(predicate)
 		if fn.Kind() != reflect.Func {
-			s.err = errors.New("Filter predicate type is not function")
+			s.err = errors.New("Filter predicate type is not Func")
 			return true, i
 		}
 		if fn.Type().NumIn() != 1 {

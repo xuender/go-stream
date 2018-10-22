@@ -15,7 +15,7 @@ func (s *Stream) Map(mapper interface{}) *Stream {
 	s.funcs = append(s.funcs, func(i *reflect.Value) (bool, *reflect.Value) {
 		fn := reflect.ValueOf(mapper)
 		if fn.Kind() != reflect.Func {
-			s.err = errors.New("Map mapper type is not function")
+			s.err = errors.New("Map mapper type is not Fun")
 			return true, i
 		}
 		if fn.Type().NumIn() != 1 {

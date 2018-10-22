@@ -12,7 +12,7 @@ func (s *Stream) ForEach(action interface{}) error {
 	}
 	fn := reflect.ValueOf(action)
 	if fn.Kind() != reflect.Func {
-		return errors.New("ForEach action type is not function")
+		return errors.New("ForEach action type is not Fun")
 	}
 	if fn.Type().NumIn() != 1 {
 		return errors.New("ForEach action's input parameter length not one")
@@ -29,9 +29,13 @@ func (s *Stream) ForEach(action interface{}) error {
 	}
 
 	if s.parallel {
-		s.parallelEvaluate(o)
+		if _, err := s.parallelEvaluate(o); err != nil && err != errNotFound {
+			return err
+		}
 		return nil
 	}
-	s.evaluate(o)
+	if _, err := s.evaluate(o); err != nil && err != errNotFound {
+		return err
+	}
 	return nil
 }

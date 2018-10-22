@@ -104,13 +104,13 @@ Output:
 | Map | Intermediate operations, Stateless | √ |
 | Peek | Intermediate operations, Stateless | √ |
 | FindFirst | Terminal operations, short-circuiting | √ |
+| AnyMatch | Terminal operations, short-circuiting | √ |
+| AllMatch | Terminal operations, short-circuiting | √ |
+| NoneMatch | Terminal operations, short-circuiting | √ |
 | ForEach | Terminal operations | √ |
 | Count | Terminal operations | √ |
 | Max | Terminal operations | |
 | Min | Terminal operations | |
-| AnyMatch | Terminal operations, short-circuiting | |
-| AllMatch | Terminal operations, short-circuiting | |
-| NoneMatch | Terminal operations, short-circuiting | |
 | FlatMap | Intermediate operations, Stateless | |
 | Distinct | Intermediate operations, Stateful | |
 | Skip | Intermediate operations, Stateful | |

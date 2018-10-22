@@ -1,7 +1,6 @@
 package stream
 
 import (
-	"errors"
 	"reflect"
 )
 
@@ -63,7 +62,7 @@ func (s *Stream) parallelEvaluate(terminalOp Operation) (*reflect.Value, error) 
 			}(&a)
 		}
 		var ret *reflect.Value
-		err := errors.New("Not find")
+		err := errNotFound
 		for i := 0; i < s.value.Len(); i++ {
 			cb := <-cbC
 			if err != nil && cb.stop {
@@ -73,6 +72,6 @@ func (s *Stream) parallelEvaluate(terminalOp Operation) (*reflect.Value, error) 
 		}
 		return ret, err
 	default:
-		return nil, errors.New("array type is not Slice or Array")
+		return nil, errArrayTypeError
 	}
 }
