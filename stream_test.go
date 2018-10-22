@@ -23,10 +23,11 @@ func ExampleNew() {
 
 func ExampleStream() {
 	arr := []int{1, 2, 3, 4, 5}
-	stream := New(arr).Filter(func(i int) bool { return i > 1 })
-	count, err := stream.Count()
+	s := New(arr).
+		Filter(func(i int) bool { return i > 1 })
+	count, err := s.Count()
 	fmt.Println(count, err)
-	first, err := stream.FindFirst()
+	first, err := s.FindFirst()
 	fmt.Println(first, err)
 
 	// Output:

@@ -82,10 +82,12 @@ peek2: 4
 
 ## Reuse
 ```go
-arr := []int{1, 2, 3, 4, 5}
-s := New(arr).Filter(func(i int) bool { return i > 1 })
+s := stream.New([]int{1, 2, 3, 4, 5}).
+  Filter(func(i int) bool { return i > 1 })
+
 count, err := s.Count()
 fmt.Println(count, err)
+
 first, err := s.FindFirst()
 fmt.Println(first, err)
 ```
