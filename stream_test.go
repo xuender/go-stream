@@ -20,3 +20,17 @@ func ExampleNew() {
 	// peek3: id:2
 	// id:2 <nil>
 }
+
+func ExampleStream() {
+	arr := []int{1, 2, 3, 4, 5}
+	stream := New(arr).Filter(func(i int) bool { return i > 1 })
+	count, err := stream.Count()
+	fmt.Println(count, err)
+	first, err := stream.FindFirst()
+	fmt.Println(first, err)
+
+	// Output:
+	// 4 <nil>
+	// 2 <nil>
+
+}

@@ -29,8 +29,8 @@ func main() {
 	fmt.Println(i, err)
 }
 ```
-output
-```shell
+Output:
+```
 peek1: 1
 peek1: 2
 peek2: 2
@@ -50,7 +50,7 @@ import (
 )
 
 func main() {
-	arr := []int{1, 2, 3, 4, 5, 6, 7, 8}
+	arr := []int{1, 2, 3, 4, 5, 6}
 	i, err := stream.New(arr).
 		Parallel().
 		Peek(func(i int) {
@@ -66,19 +66,32 @@ func main() {
 	fmt.Println(i, err)
 }
 ```
-output
-```shell
+Output:
+```
 peek1: 4
 peek1: 6
 peek1: 1
 peek1: 5
-peek1: 7
-peek1: 8
 peek1: 2
 peek1: 3
 peek2: 2
 peek2: 3
 peek2: 4
+2 <nil>
+```
+
+## Reuse
+```go
+arr := []int{1, 2, 3, 4, 5}
+s := New(arr).Filter(func(i int) bool { return i > 1 })
+count, err := s.Count()
+fmt.Println(count, err)
+first, err := s.FindFirst()
+fmt.Println(first, err)
+```
+Output:
+```
+4 <nil>
 2 <nil>
 ```
 
