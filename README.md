@@ -100,6 +100,8 @@ Output:
 ## Functions
 | Function | Type | State |
 | - | - | - |
+| Sequential | Intermediate operations, Stateful | |
+| Parallel | Intermediate operations, Stateful | √|
 | Filter | Intermediate operations, Stateless | √ |
 | Map | Intermediate operations, Stateless | √ |
 | Peek | Intermediate operations, Stateless | √ |
