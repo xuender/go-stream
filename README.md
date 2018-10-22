@@ -19,7 +19,7 @@ import (
 
 func main() {
 	arr := []int{1, 2, 3, 4, 5}
-	i, err := stream.NewStream(arr).
+	i, err := stream.New(arr).
 		Peek(func(i int) { fmt.Println("peek1:", i) }).
 		Filter(func(i int) bool { return i > 1 }).
 		Peek(func(i int) { fmt.Println("peek2:", i) }).
@@ -51,7 +51,7 @@ import (
 
 func main() {
 	arr := []int{1, 2, 3, 4, 5, 6, 7, 8}
-	i, err := stream.NewStream(arr).
+	i, err := stream.New(arr).
 		Parallel().
 		Peek(func(i int) {
 			fmt.Println("peek1:", i)

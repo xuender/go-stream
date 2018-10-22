@@ -2,9 +2,9 @@ package stream
 
 import "fmt"
 
-func ExampleNewStream() {
+func ExampleNew() {
 	arr := []int{1, 2, 3, 4, 5}
-	i, err := NewStream(arr).
+	i, err := New(arr).
 		Peek(func(i int) { fmt.Println("peek1:", i) }).
 		Filter(func(i int) bool { return i > 1 }).
 		Peek(func(i int) { fmt.Println("peek2:", i) }).

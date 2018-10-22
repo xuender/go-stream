@@ -43,8 +43,8 @@ func (s *Stream) evaluate(terminalOp Operation) (*reflect.Value, error) {
 	}
 }
 
-// NewStream returns a sequential Stream.
-func NewStream(array interface{}) *Stream {
+// New returns a sequential Stream.
+func New(array interface{}) *Stream {
 	v := reflect.ValueOf(array)
 	return &Stream{
 		value: &v,

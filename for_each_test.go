@@ -5,7 +5,7 @@ import "fmt"
 func ExampleStream_ForEach() {
 	arr := []int{1, 2, 3}
 
-	err := NewStream(arr).
+	err := New(arr).
 		Filter(func(i int) bool { return i > 1 }).
 		ForEach(func(i int) { fmt.Println(i) })
 
