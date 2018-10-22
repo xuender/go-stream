@@ -81,3 +81,19 @@ peek2: 3
 peek2: 4
 2 <nil>
 ```
+
+## Functions
+| Function | Type | State |
+| - | - | - |
+| Filter | Intermediate operations, Stateless | √ |
+| Map | Intermediate operations, Stateless | √ |
+| Peek | Intermediate operations, Stateless | √ |
+| FindFirst | Terminal operations, short-circuiting | √ |
+| ForEach | Terminal operations | √ |
+| Max | Terminal operations | |
+| Min | Terminal operations | |
+| Count | Terminal operations | |
+| AnyMatch | Terminal operations, short-circuiting | |
+| AllMatch | Terminal operations, short-circuiting | |
+| NoneMatch | Terminal operations, short-circuiting | |
+| FlatMap | Intermediate operations, Stateless | |
