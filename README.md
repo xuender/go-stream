@@ -111,8 +111,8 @@ Output:
 | Count | Terminal operations | √ |
 | Skip | Intermediate operations, Stateful | √ |
 | Limit | Intermediate operations, Stateful | √ |
+| Distinct | Intermediate operations, Stateful | √ |
 | Max | Terminal operations | |
 | Min | Terminal operations | |
 | FlatMap | Intermediate operations, Stateless | |
-| Distinct | Intermediate operations, Stateful | |
 | Sorted | Intermediate operations, Stateful | |
