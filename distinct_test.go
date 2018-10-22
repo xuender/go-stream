@@ -6,11 +6,12 @@ import (
 
 func ExampleStream_Distinct() {
 	c, err := New([]int{1, 2, 3, 3, 2}).
+		Filter(func(i int) bool { return i > 1 }).
 		Distinct().
 		Count()
 
 	fmt.Println(c, err)
 
 	// Output:
-	// 3 <nil>
+	// 2 <nil>
 }
