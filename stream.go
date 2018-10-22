@@ -12,6 +12,24 @@ type Stream struct {
 	err      error
 	parallel bool
 	stop     bool
+	sortFunc *reflect.Value
+}
+
+func (s *Stream) Len() int {
+	return s.value.Len()
+}
+
+func (s *Stream) Swap(i, j int) {
+	v := s.value.Index(i).Interface()
+	s.value.Index(i).Set(s.value.Index(j))
+	s.value.Index(j).Set(reflect.ValueOf(v))
+}
+
+func (s Stream) Less(i, j int) bool {
+	var param [2]reflect.Value
+	param[0] = s.value.Index(i)
+	param[1] = s.value.Index(j)
+	return s.sortFunc.Call(param[:])[0].Bool()
 }
 
 // Operation terminal operation.

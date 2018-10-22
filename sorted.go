@@ -1,40 +1,48 @@
 package stream
 
 import (
+	"errors"
 	"reflect"
+	"sort"
 )
 
-// Sorted TODO
-func (s *Stream) Sorted() *Stream {
+// Sorted returns a stream consisting of the elements of this stream,
+// sorted according to the provided `less`.
+func (s *Stream) Sorted(less interface{}) *Stream {
 	if s.err != nil {
 		return s
 	}
-	switch s.value.Kind() {
-	case reflect.Slice, reflect.Array:
-		na := []interface{}{}
-		for i := 0; i < s.value.Len(); i++ {
-			a := s.value.Index(i)
-			ok := true
-			for _, f := range s.funcs {
-				if stop, v := f(&a); stop {
-					ok = false
-					break
-				} else {
-					a = *v
-				}
-			}
-			if ok {
-				na = append(na, a.Interface())
-			}
-		}
-		// TODO Sort
-		// sort.Ints(na)
-		v := reflect.ValueOf(na)
-		s.value = &v
-		s.funcs = []Operation{}
-		return s
-	default:
-		s.err = errArrayTypeError
+	fn := reflect.ValueOf(less)
+	if fn.Kind() != reflect.Func {
+		s.err = errors.New("Sorted less type is not Func")
 		return s
 	}
+	if fn.Type().NumIn() != 2 {
+		s.err = errors.New("Sorted less's input parameter length not two")
+		return s
+	}
+	if fn.Type().NumOut() != 1 {
+		s.err = errors.New("Sorted less's output parameter length not one")
+		return s
+	}
+	if fn.Type().Out(0).Kind() != reflect.Bool {
+		s.err = errors.New("Sorted less's output parameter type is not Bool")
+		return s
+	}
+
+	o := func(i *reflect.Value) (bool, *reflect.Value) { return false, i }
+
+	var err error
+	if s.parallel {
+		_, err = s.parallelEvaluate(o)
+	} else {
+		_, err = s.evaluate(o)
+	}
+	if err != nil && err != errNotFound {
+		s.err = err
+		return s
+	}
+	s.sortFunc = &fn
+	sort.Sort(s)
+	return s
 }
