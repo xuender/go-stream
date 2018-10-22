@@ -25,7 +25,16 @@ func (s *Stream) Max(less interface{}) (interface{}, error) {
 		return nil, errors.New("Max less's output parameter type is not Bool")
 	}
 
-	o := func(i *reflect.Value) (bool, *reflect.Value) { return false, i }
+	t := s.value.Type()
+	ret := reflect.New(t).Elem()
+	ret.Set(reflect.MakeSlice(t, 0, s.value.Len()))
+	ret.SetLen(s.value.Len())
+	n := 0
+	o := func(i *reflect.Value) (bool, *reflect.Value) {
+		ret.Index(n).Set(*i)
+		n++
+		return false, i
+	}
 
 	var err error
 	if s.parallel {
@@ -36,6 +45,8 @@ func (s *Stream) Max(less interface{}) (interface{}, error) {
 	if err != nil && err != errNotFound {
 		return nil, err
 	}
+	ret.SetLen(n)
+	s.value = &ret
 	s.sortFunc = &fn
 	sort.Sort(s)
 	return s.value.Index(s.value.Len() - 1).Interface(), nil

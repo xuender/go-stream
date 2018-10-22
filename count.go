@@ -14,10 +14,14 @@ func (s *Stream) Count() (int, error) {
 		return false, i
 	}
 
+	var err error
 	if s.parallel {
-		s.parallelEvaluate(o)
-		return count, nil
+		_, err = s.parallelEvaluate(o)
+	} else {
+		_, err = s.evaluate(o)
 	}
-	s.evaluate(o)
+	if err != nil && err != errNotFound {
+		return 0, err
+	}
 	return count, nil
 }
