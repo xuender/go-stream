@@ -97,3 +97,7 @@ peek2: 4
 | AllMatch | Terminal operations, short-circuiting | |
 | NoneMatch | Terminal operations, short-circuiting | |
 | FlatMap | Intermediate operations, Stateless | |
+| Distinct | Intermediate operations, Stateful | |
+| Skip | Intermediate operations, Stateful | |
+| Limit | Intermediate operations, Stateful | |
+| Sorted | Intermediate operations, Stateful | |
