@@ -9,7 +9,7 @@ import (
 
 func main() {
 	arr := []int{1, 2, 3, 4, 5, 6}
-	i, err := stream.New(arr).
+	f, err := stream.New(arr).
 		Parallel().
 		Peek(func(i int) {
 			fmt.Println("peek1:", i)
@@ -21,5 +21,6 @@ func main() {
 			time.Sleep(time.Second * time.Duration(i))
 		}).
 		FindFirst()
-	fmt.Println(i, err)
+
+	fmt.Println(f, err)
 }
