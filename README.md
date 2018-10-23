@@ -105,4 +105,4 @@ peek2: 4
 | Count | Terminal operations | √ |
 | Max | Terminal operations | √ |
 | Min | Terminal operations | √ |
-| Reduce | Terminal operations | |
+| Reduce | Terminal operations | √ |
