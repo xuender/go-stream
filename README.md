@@ -100,7 +100,7 @@ func main() {
 	sum, err := stream.New(arr).
 		FlatMap(func(s string) []byte { return []byte(s) }).
 		Map(func(s byte) int { return int(s) }).
-    Reduce(func(x, y int) int { return x + y })
+		Reduce(func(x, y int) int { return x + y })
 
 	fmt.Println(sum, err)
 }
