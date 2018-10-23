@@ -6,7 +6,7 @@ import (
 	"sort"
 )
 
-// Max returns the minimum element of this stream according to the provided `less`.
+// Min returns the minimum element of this stream according to the provided `less`.
 func (s *Stream) Min(less interface{}) (interface{}, error) {
 	if s.err != nil {
 		return nil, s.err
