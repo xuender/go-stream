@@ -23,7 +23,7 @@ func (s *Stream) run(value *reflect.Value, i int) []*reflect.Value {
 		ns := s.run(os[num], i)
 		end := os[num+1:]
 		os = append(os[:num], ns...)
-		num++
+		// num++
 		num += len(ns)
 		os = append(os, end...)
 	}

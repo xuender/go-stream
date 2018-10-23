@@ -49,5 +49,8 @@ func (s *Stream) Reduce(accumulator interface{}) (interface{}, error) {
 	if err != nil && err != errNotFound {
 		return nil, err
 	}
+	if isNew {
+		return nil, nil
+	}
 	return ret.Interface(), nil
 }
