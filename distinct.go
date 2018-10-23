@@ -27,7 +27,7 @@ func (s *Stream) Distinct() *Stream {
 		s.err = err
 		return s
 	}
-	s.funcs = []Operation{}
+	s.funcs = []func(*reflect.Value) []*reflect.Value{}
 	ret := reflect.New(t).Elem()
 	ret.Set(reflect.MakeSlice(t, 0, len(m)))
 	ret.SetLen(len(m))

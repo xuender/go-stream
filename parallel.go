@@ -31,7 +31,7 @@ func (s *Stream) setParallel(p bool) *Stream {
 		s.err = err
 		return s
 	}
-	s.funcs = []Operation{}
+	s.funcs = []func(*reflect.Value) []*reflect.Value{}
 	s.parallel = p
 	return s
 }
@@ -43,42 +43,20 @@ func (s *Stream) parallelEvaluate(terminalOp Operation) (*reflect.Value, error) 
 		cbC := make(chan *valueCallBack, 1)
 		for i := 0; i < s.value.Len(); i++ {
 			a := s.value.Index(i)
+			if len(s.funcs) == 0 {
+				return &a, nil
+			}
 			go func(a *reflect.Value) {
-				ok := true
-				for _, f := range s.funcs {
-					if s.stop {
-						cbC <- &valueCallBack{
-							v:    a,
-							stop: true,
-						}
-						return
-					}
-					if stop, t := f(a); stop {
-						ok = false
-						break
-					} else {
-						a = t
-					}
-				}
-				if s.stop {
-					cbC <- &valueCallBack{
-						v:    a,
-						stop: true,
-					}
-					return
-				}
-				if ok {
-					if stop, e := terminalOp(a); stop {
+				var ret *reflect.Value
+				for _, v := range s.run(a, 0) {
+					if stop, e := terminalOp(v); stop {
+						ret = e
 						s.stop = true
-						cbC <- &valueCallBack{
-							v:    e,
-							stop: true,
-						}
-						return
+						break
 					}
 				}
 				cbC <- &valueCallBack{
-					v:    a,
+					v:    ret,
 					stop: false,
 				}
 			}(&a)

@@ -37,7 +37,7 @@ func (s *Stream) Limit(maxSize int) *Stream {
 		s.err = err
 		return s
 	}
-	s.funcs = []Operation{}
+	s.funcs = []func(*reflect.Value) []*reflect.Value{}
 	s.value = &ret
 	return s
 }

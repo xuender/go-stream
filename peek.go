@@ -11,24 +11,24 @@ func (s *Stream) Peek(action interface{}) *Stream {
 		return s
 	}
 
-	s.funcs = append(s.funcs, func(i *reflect.Value) (bool, *reflect.Value) {
+	s.funcs = append(s.funcs, func(i *reflect.Value) []*reflect.Value {
 		fn := reflect.ValueOf(action)
 		if fn.Kind() != reflect.Func {
 			s.err = errors.New("Peek action type is not Fun")
-			return true, i
+			return emptyValues
 		}
 		if fn.Type().NumIn() != 1 {
 			s.err = errors.New("Peek action's input parameter length is not one")
-			return true, i
+			return emptyValues
 		}
 		if fn.Type().NumOut() != 0 {
 			s.err = errors.New("Peek action's output parameter length is not zero")
-			return true, i
+			return emptyValues
 		}
 		var param [1]reflect.Value
 		param[0] = *i
 		fn.Call(param[:])
-		return false, i
+		return []*reflect.Value{i}
 	})
 
 	return s

@@ -1,6 +1,8 @@
 package stream
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func ExampleNew() {
 	arr := []int{1, 2, 3, 4, 5}
@@ -20,7 +22,6 @@ func ExampleNew() {
 	// peek3: id:2
 	// id:2 <nil>
 }
-
 func ExampleStream() {
 	arr := []int{1, 2, 3, 4, 5}
 	s := New(arr).

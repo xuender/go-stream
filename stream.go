@@ -8,7 +8,7 @@ import (
 // Stream inspired in Java 8 Streams.
 type Stream struct {
 	value    *reflect.Value
-	funcs    []Operation
+	funcs    []func(*reflect.Value) []*reflect.Value
 	err      error
 	parallel bool
 	stop     bool
@@ -37,13 +37,14 @@ type Operation func(*reflect.Value) (bool, *reflect.Value)
 
 var errNotFound = errors.New("Not found")
 var errArrayTypeError = errors.New("array type is not Slice and Array")
+var emptyValues = []*reflect.Value{}
 
 // New returns a Stream.
 func New(array interface{}) *Stream {
 	v := reflect.ValueOf(array)
 	return &Stream{
 		value:    &v,
-		funcs:    []Operation{},
+		funcs:    []func(*reflect.Value) []*reflect.Value{},
 		parallel: false,
 		stop:     false,
 	}

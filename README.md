@@ -87,8 +87,13 @@ peek2: 4
 | - | - | - |
 | Sequential | Intermediate operations, Stateful | √ |
 | Parallel | Intermediate operations, Stateful | √ |
+| Skip | Intermediate operations, Stateful | √ |
+| Limit | Intermediate operations, Stateful | √ |
+| Distinct | Intermediate operations, Stateful | √ |
+| Sorted | Intermediate operations, Stateful | √ |
 | Filter | Intermediate operations, Stateless | √ |
 | Map | Intermediate operations, Stateless | √ |
+| FlatMap | Intermediate operations, Stateless | √ |
 | Peek | Intermediate operations, Stateless | √ |
 | FindFirst | Terminal operations, short-circuiting | √ |
 | AnyMatch | Terminal operations, short-circuiting | √ |
@@ -96,10 +101,5 @@ peek2: 4
 | NoneMatch | Terminal operations, short-circuiting | √ |
 | ForEach | Terminal operations | √ |
 | Count | Terminal operations | √ |
-| Skip | Intermediate operations, Stateful | √ |
-| Limit | Intermediate operations, Stateful | √ |
-| Distinct | Intermediate operations, Stateful | √ |
-| Sorted | Intermediate operations, Stateful | √ |
 | Max | Terminal operations | √ |
 | Min | Terminal operations | √ |
-| FlatMap | Intermediate operations, Stateless | |
