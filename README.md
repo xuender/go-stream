@@ -7,7 +7,7 @@ To install the library and command line program, use the following:
 go get -u github.com/xuender/go-stream
 ```
 
-## Usage
+## Usage example
 Sequential stream:
 ```go
 package main
@@ -40,7 +40,7 @@ peek3: id:2
 id:2 <nil>
 ```
 
-## Parallel
+## Parallel example
 Parallel stream:
 ```go
 package main
@@ -82,6 +82,32 @@ peek2: 2
 peek2: 3
 peek2: 4
 2 <nil>
+```
+
+## Complex example
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/xuender/go-stream"
+)
+
+func main() {
+  arr := []string{"go", "stream", "is", "good"}
+
+	sum, err := stream.New(arr).
+		FlatMap(func(s string) []byte { return []byte(s) }).
+		Map(func(s byte) int { return int(s) }).
+    Reduce(func(x, y int) int { return x + y })
+
+	fmt.Println(sum, err)
+}
+```
+Output:
+```
+1511 <nil>
 ```
 
 ## Functions
