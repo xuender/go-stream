@@ -57,7 +57,7 @@ func (s *Stream) parallelEvaluate(terminalOp Operation) (*reflect.Value, error) 
 				}
 				cbC <- &valueCallBack{
 					v:    ret,
-					stop: false,
+					stop: s.stop,
 				}
 			}(&a)
 		}
