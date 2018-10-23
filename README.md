@@ -26,8 +26,8 @@ func main() {
 		Peek(func(i int) { fmt.Println("peek2:", i) }).
 		Map(func(i int) string { return fmt.Sprintf("id:%d", i) }).
 		Peek(func(s string) { fmt.Println("peek3:", s) }).
-    FindFirst()
-    
+		FindFirst()
+
 	fmt.Println(f, err)
 }
 ```
@@ -65,7 +65,7 @@ func main() {
 			fmt.Println("peek2:", i)
 			time.Sleep(time.Second * time.Duration(i))
 		}).
-    FindFirst()
+		FindFirst()
 
 	fmt.Println(f, err)
 }
