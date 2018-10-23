@@ -10,14 +10,14 @@ func (s *Stream) FindFirst() (interface{}, error) {
 		return nil, s.err
 	}
 
-	o := func(i *reflect.Value) (bool, *reflect.Value) { return true, i }
+	operation := func(i *reflect.Value) (bool, *reflect.Value) { return true, i }
 
 	var v *reflect.Value
 	var err error
 	if s.parallel {
-		v, err = s.parallelEvaluate(o)
+		v, err = s.parallelEvaluate(operation)
 	} else {
-		v, err = s.evaluate(o)
+		v, err = s.evaluate(operation)
 	}
 	if err == nil {
 		return v.Interface(), nil

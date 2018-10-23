@@ -24,7 +24,7 @@ func (s *Stream) AnyMatch(predicate interface{}) (bool, error) {
 		return false, errors.New("AnyMatch predicate's output parameter type is not Bool")
 	}
 
-	o := func(i *reflect.Value) (bool, *reflect.Value) {
+	operation := func(i *reflect.Value) (bool, *reflect.Value) {
 		var param [1]reflect.Value
 		param[0] = *i
 		return fn.Call(param[:])[0].Bool(), i
@@ -32,9 +32,9 @@ func (s *Stream) AnyMatch(predicate interface{}) (bool, error) {
 
 	var err error
 	if s.parallel {
-		_, err = s.parallelEvaluate(o)
+		_, err = s.parallelEvaluate(operation)
 	} else {
-		_, err = s.evaluate(o)
+		_, err = s.evaluate(operation)
 	}
 	if err == nil {
 		return true, nil

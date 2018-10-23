@@ -24,7 +24,7 @@ func (s *Stream) Skip(n int) *Stream {
 	ret.Set(reflect.MakeSlice(t, 0, size))
 	ret.SetLen(size)
 	num := 0
-	o := func(i *reflect.Value) (bool, *reflect.Value) {
+	operation := func(i *reflect.Value) (bool, *reflect.Value) {
 		if num >= n {
 			ret.Index(num - n).Set(*i)
 		}
@@ -34,9 +34,9 @@ func (s *Stream) Skip(n int) *Stream {
 
 	var err error
 	if s.parallel {
-		_, err = s.parallelEvaluate(o)
+		_, err = s.parallelEvaluate(operation)
 	} else {
-		_, err = s.evaluate(o)
+		_, err = s.evaluate(operation)
 	}
 	if err != nil && err != errNotFound {
 		s.err = err

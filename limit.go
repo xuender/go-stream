@@ -18,7 +18,7 @@ func (s *Stream) Limit(maxSize int) *Stream {
 	ret := reflect.New(t).Elem()
 	ret.Set(reflect.MakeSlice(t, 0, maxSize))
 	ret.SetLen(maxSize)
-	o := func(i *reflect.Value) (bool, *reflect.Value) {
+	operation := func(i *reflect.Value) (bool, *reflect.Value) {
 		if size >= maxSize {
 			return true, i
 		}
@@ -29,9 +29,9 @@ func (s *Stream) Limit(maxSize int) *Stream {
 
 	var err error
 	if s.parallel {
-		_, err = s.parallelEvaluate(o)
+		_, err = s.parallelEvaluate(operation)
 	} else {
-		_, err = s.evaluate(o)
+		_, err = s.evaluate(operation)
 	}
 	if err != nil && err != errNotFound {
 		s.err = err

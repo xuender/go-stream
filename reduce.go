@@ -26,7 +26,7 @@ func (s *Stream) Reduce(accumulator interface{}) (interface{}, error) {
 
 	var ret *reflect.Value
 	isNew := true
-	o := func(i *reflect.Value) (bool, *reflect.Value) {
+	operation := func(i *reflect.Value) (bool, *reflect.Value) {
 		if isNew {
 			isNew = false
 			ret = i
@@ -42,9 +42,9 @@ func (s *Stream) Reduce(accumulator interface{}) (interface{}, error) {
 
 	var err error
 	if s.parallel {
-		_, err = s.parallelEvaluate(o)
+		_, err = s.parallelEvaluate(operation)
 	} else {
-		_, err = s.evaluate(o)
+		_, err = s.evaluate(operation)
 	}
 	if err != nil && err != errNotFound {
 		return nil, err

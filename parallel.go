@@ -19,13 +19,13 @@ func (s *Stream) setParallel(p bool) *Stream {
 		return s
 	}
 
-	o := func(i *reflect.Value) (bool, *reflect.Value) { return false, i }
+	operation := func(i *reflect.Value) (bool, *reflect.Value) { return false, i }
 
 	var err error
 	if s.parallel {
-		_, err = s.parallelEvaluate(o)
+		_, err = s.parallelEvaluate(operation)
 	} else {
-		_, err = s.evaluate(o)
+		_, err = s.evaluate(operation)
 	}
 	if err != nil && err != errNotFound {
 		s.err = err
