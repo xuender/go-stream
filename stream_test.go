@@ -2,6 +2,8 @@ package stream
 
 import (
 	"fmt"
+	"sort"
+	"testing"
 )
 
 func ExampleNew() {
@@ -34,4 +36,50 @@ func ExampleStream() {
 	// Output:
 	// 4 <nil>
 	// 2 <nil>
+}
+func BenchmarkStream(b *testing.B) {
+	b.StopTimer()
+	arr := make([]int, 100)
+	for i := 0; i < 100; i++ {
+		arr[i] = i
+	}
+	s := New(arr).
+		Filter(func(i int) bool { return i > 33 }).
+		Map(func(i int) int { return i * 2 }).
+		Filter(func(i int) bool { return i > 100 })
+	b.StartTimer()
+	for i := 0; i < b.N; i++ {
+		l, _ := s.Sorted(func(x, y int) bool { return x > y }).FindFirst()
+		if l != 198 {
+			fmt.Println("error")
+		}
+	}
+}
+
+func BenchmarkStream2(b *testing.B) {
+	b.StopTimer()
+	arr := make([]int, 100)
+	for i := 0; i < 100; i++ {
+		arr[i] = i
+	}
+	b.StartTimer()
+	for i := 0; i < b.N; i++ {
+		na := []int{}
+		for _, a := range arr {
+			if a > 33 {
+				na = append(na, a*2)
+			}
+		}
+		ret := []int{}
+		for _, a := range na {
+			if a > 100 {
+				ret = append(ret, a)
+			}
+		}
+		sort.Ints(ret)
+		l := ret[len(ret)-1]
+		if l != 198 {
+			fmt.Println("error")
+		}
+	}
 }

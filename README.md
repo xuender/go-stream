@@ -1,6 +1,10 @@
 # go-stream
 Stream Collections for Go. Inspired in Java 8 Streams.
 
+Because using reflect is slow, it is **not recommended for production environment**.
+
+Expect the support of GO2 version generic.
+
 ## Installation
 To install the library and command line program, use the following:
 ```shell
