@@ -1,18 +1,21 @@
 # go-stream
+
 Stream Collections for Go. Inspired in Java 8 Streams.
 
-Because using reflect is slow, it is **not recommended for production environment**.
-
-Expect the support of GO2 version generic.
+Expect the support of GO 1.18 version generic.
 
 ## Installation
+
 To install the library and command line program, use the following:
+
 ```shell
 go get -u github.com/xuender/go-stream
 ```
 
 ## Usage example
+
 Sequential stream:
+
 ```go
 package main
 
@@ -35,8 +38,10 @@ func main() {
 	fmt.Println(f, err)
 }
 ```
+
 Output:
-```
+
+```shell
 peek1: 1
 peek1: 2
 peek2: 2
@@ -45,7 +50,9 @@ id:2 <nil>
 ```
 
 ## Parallel example
+
 Parallel stream:
+
 ```go
 package main
 
@@ -74,8 +81,10 @@ func main() {
 	fmt.Println(f, err)
 }
 ```
+
 Output:
-```
+
+```shell
 peek1: 4
 peek1: 6
 peek1: 1
@@ -89,6 +98,7 @@ peek2: 4
 ```
 
 ## Complex example
+
 ```go
 package main
 
@@ -109,30 +119,33 @@ func main() {
 	fmt.Println(sum, err)
 }
 ```
+
 Output:
-```
+
+```shell
 1511 <nil>
 ```
 
 ## Functions
+
 | Function | Type | State |
 | - | - | - |
-| Sequential | Intermediate operations, Stateful | √ |
-| Parallel | Intermediate operations, Stateful | √ |
-| Skip | Intermediate operations, Stateful | √ |
-| Limit | Intermediate operations, Stateful | √ |
-| Distinct | Intermediate operations, Stateful | √ |
-| Sorted | Intermediate operations, Stateful | √ |
-| Filter | Intermediate operations, Stateless | √ |
-| Map | Intermediate operations, Stateless | √ |
-| FlatMap | Intermediate operations, Stateless | √ |
-| Peek | Intermediate operations, Stateless | √ |
-| FindFirst | Terminal operations, short-circuiting | √ |
-| AnyMatch | Terminal operations, short-circuiting | √ |
-| AllMatch | Terminal operations, short-circuiting | √ |
-| NoneMatch | Terminal operations, short-circuiting | √ |
 | ForEach | Terminal operations | √ |
 | Count | Terminal operations | √ |
 | Max | Terminal operations | √ |
 | Min | Terminal operations | √ |
-| Reduce | Terminal operations | √ |
+| Parallel | Intermediate operations, Stateful | √ |
+| Limit | Intermediate operations, Stateful | √ |
+| Filter | Intermediate operations, Stateless | √ |
+| Map | Intermediate operations, Stateless | √ |
+| Peek | Intermediate operations, Stateless | √ |
+| FindFirst | Terminal operations, short-circuiting | √ |
+| AnyMatch | Terminal operations, short-circuiting | √ |
+| AllMatch | Terminal operations, short-circuiting | √ |
+| NoneMatch | Terminal operations, short-circuiting | √  |
+| Sequential | Intermediate operations, Stateful |   |
+| Skip | Intermediate operations, Stateful |   |
+| Distinct | Intermediate operations, Stateful |   |
+| Sorted | Intermediate operations, Stateful |   |
+| FlatMap | Intermediate operations, Stateless |   |
+| Reduce | Terminal operations |   |

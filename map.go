@@ -2,32 +2,28 @@ package stream
 
 import "golang.org/x/exp/constraints"
 
-func Map[I, O any](input chan I, predicate func(I) O) *BaseStream[O] {
+type MapAction[I, O any] func(I) O
+
+func Map[I, O any](input chan I, action MapAction[I, O]) *BaseStream[O] {
 	output := make(chan O)
-	ret := NewBase[O](output)
 
-	go func() {
-		for i := range input {
-			output <- predicate(i)
-		}
+	go mapRun(input, output, action)
 
-		close(output)
-	}()
-
-	return ret
+	return NewBase[O](output)
 }
 
-func MapOrdered[I any, O constraints.Ordered](input chan I, predicate func(I) O) *OrderedStream[O] {
+func mapRun[I, O any](input <-chan I, output chan<- O, action MapAction[I, O]) {
+	for i := range input {
+		output <- action(i)
+	}
+
+	close(output)
+}
+
+func MapOrdered[I any, O constraints.Ordered](input chan I, action MapAction[I, O]) *OrderedStream[O] {
 	output := make(chan O)
-	ret := NewOrdered(output)
 
-	go func() {
-		for i := range input {
-			output <- predicate(i)
-		}
+	go mapRun(input, output, action)
 
-		close(output)
-	}()
-
-	return ret
+	return NewOrdered(output)
 }

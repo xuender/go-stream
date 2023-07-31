@@ -2,19 +2,21 @@ package stream
 
 import "sync"
 
-func (p *BaseStream[T]) ForEach(consum func(elem T)) {
+type Action[T any] func(T)
+
+func (p *BaseStream[T]) ForEach(action Action[T]) {
 	for elem := range p.C {
-		consum(elem)
+		action(elem)
 	}
 }
 
-func (p *ParallelStream[T]) ForEach(consum func(elem T)) {
+func (p *ParallelStream[T]) ForEach(action Action[T]) {
 	group := sync.WaitGroup{}
 	group.Add(p.Size)
 
 	for i := 0; i < p.Size; i++ {
 		go func() {
-			p.BaseStream.ForEach(consum)
+			p.BaseStream.ForEach(action)
 			group.Done()
 		}()
 	}

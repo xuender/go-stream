@@ -17,3 +17,11 @@ func (p *BaseStream[T]) Count() int {
 
 	return count
 }
+
+func (p *BaseStream[T]) FindFirst() T {
+	ret := <-p.C
+
+	go Consume(p.C)
+
+	return ret
+}
