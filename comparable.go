@@ -8,12 +8,14 @@ func NewComparable[C comparable](input chan C) *ComparableStream[C] {
 	return &ComparableStream[C]{*NewBase(input)}
 }
 
+// Distinct returns a stream consisting of the distinct elements of this stream.
 func (p *ComparableStream[C]) Distinct() *ComparableStream[C] {
 	p.C = Distinct(p.C)
 
 	return p
 }
 
+// Distinct returns a channel consisting of the distinct elements of input channel.
 func Distinct[C comparable](input <-chan C) chan C {
 	output := make(chan C)
 
