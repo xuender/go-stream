@@ -1,16 +1,15 @@
 package main
 
 import (
-	"time"
+	"fmt"
 
 	"github.com/xuender/go-stream"
 )
 
 func main() {
 	input := make(chan int)
-	base := stream.NewBase(input)
-
-	base.Filter(func(num int) bool { return num > 5 })
+	base := stream.NewBase(input).
+		Filter(func(num int) bool { return num > 5 })
 
 	go func(cha chan<- int) {
 		for i := 0; i < 10; i++ {
@@ -20,6 +19,5 @@ func main() {
 		close(cha)
 	}(input)
 
-	time.Sleep(time.Millisecond)
-	println(base.Count())
+	fmt.Println(base.Count())
 }

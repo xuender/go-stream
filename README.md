@@ -2,7 +2,7 @@
 
 Stream Collections for Go. Inspired in Java 8 Streams.
 
-Expect the support of GO 1.18 version generic.
+Expect the support of Go 1.18 version generic.
 
 ## Installation
 
@@ -12,30 +12,35 @@ To install the library and command line program, use the following:
 go get -u github.com/xuender/go-stream
 ```
 
-## Usage example
+## Base
 
-Sequential stream:
+BaseStream
 
 ```go
 package main
 
 import (
-	"fmt"
+  "fmt"
 
-	"github.com/xuender/go-stream"
+  "github.com/xuender/go-stream"
 )
 
 func main() {
-	arr := []int{1, 2, 3, 4, 5}
-	f, err := stream.New(arr).
-		Peek(func(i int) { fmt.Println("peek1:", i) }).
-		Filter(func(i int) bool { return i > 1 }).
-		Peek(func(i int) { fmt.Println("peek2:", i) }).
-		Map(func(i int) string { return fmt.Sprintf("id:%d", i) }).
-		Peek(func(s string) { fmt.Println("peek3:", s) }).
-		FindFirst()
+  input := make(chan int)
+  base := stream.NewBase(input).
+    Peek(func(num int) { fmt.Println("peek1:", num) }).
+    Filter(func(num int) bool { return num > 1 }).
+    Peek(func(num int) { fmt.Println("peek2:", num) })
 
-	fmt.Println(f, err)
+  go func() {
+    for i := 1; i < 5; i++ {
+      input <- i
+    }
+
+    close(input)
+  }()
+
+  fmt.Println(base.Count())
 }
 ```
 
@@ -43,87 +48,67 @@ Output:
 
 ```shell
 peek1: 1
-peek1: 2
-peek2: 2
-peek3: id:2
-id:2 <nil>
-```
-
-## Parallel example
-
-Parallel stream:
-
-```go
-package main
-
-import (
-	"fmt"
-	"time"
-
-	"github.com/xuender/go-stream"
-)
-
-func main() {
-	arr := []int{1, 2, 3, 4, 5, 6}
-	f, err := stream.New(arr).
-		Parallel().
-		Peek(func(i int) {
-			fmt.Println("peek1:", i)
-			time.Sleep(time.Second * time.Duration(i))
-		}).
-		Filter(func(i int) bool { return i > 1 }).
-		Peek(func(i int) {
-			fmt.Println("peek2:", i)
-			time.Sleep(time.Second * time.Duration(i))
-		}).
-		FindFirst()
-
-	fmt.Println(f, err)
-}
-```
-
-Output:
-
-```shell
-peek1: 4
-peek1: 6
-peek1: 1
-peek1: 5
 peek1: 2
 peek1: 3
 peek2: 2
 peek2: 3
+peek1: 4
 peek2: 4
-2 <nil>
+3
 ```
 
-## Complex example
+## Parallel
+
+ParallelStream
 
 ```go
 package main
 
 import (
-	"fmt"
+  "fmt"
+  "math/rand"
+  "time"
 
-	"github.com/xuender/go-stream"
+  "github.com/xuender/go-stream"
 )
 
 func main() {
-  arr := []string{"go", "stream", "is", "good"}
+  input := make(chan int)
+  parallel := stream.NewBase(input).
+    Parallel(100).
+    Filter(func(t int) bool { return t%7 == 0 })
 
-	sum, err := stream.New(arr).
-		FlatMap(func(s string) []byte { return []byte(s) }).
-		Map(func(s byte) int { return int(s) }).
-		Reduce(func(x, y int) int { return x + y })
+  go func() {
+    for i := 0; i < 1000; i++ {
+      input <- i
+    }
 
-	fmt.Println(sum, err)
+    close(input)
+  }()
+
+  parallel.ForEach(func(num int) {
+    dur := time.Duration(rand.Intn(1000))
+
+    time.Sleep(time.Millisecond * dur)
+    fmt.Printf("%d\t%dms\n", num, dur)
+  })
 }
 ```
 
 Output:
 
 ```shell
-1511 <nil>
+322     0ms  
+651     2ms  
+483     2ms  
+182     15ms 
+266     26ms 
+567     33ms 
+742     10ms 
+175     47ms 
+476     59ms 
+7       59ms 
+...
 ```
 
 ## Functions
