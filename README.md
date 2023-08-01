@@ -2,6 +2,11 @@
 
 [![GoCI](https://github.com/xuender/go-stream/workflows/Go/badge.svg)](https://github.com/xuender/go-stream/actions)
 [![Go Report Card](https://goreportcard.com/badge/github.com/xuender/go-stream)](https://goreportcard.com/report/github.com/xuender/go-stream)
+[![codecov](https://codecov.io/gh/xuender/go-stream/branch/master/graph/badge.svg?token=KCNTIM7DLH)](https://codecov.io/gh/xuender/go-stream)
+[![GoDoc](https://godoc.org/github.com/xuender/go-stream?status.svg)](https://pkg.go.dev/github.com/xuender/go-stream)
+[![GitHub license](https://img.shields.io/github/license/xuender/go-stream)](https://github.com/xuender/go-stream/blob/main/LICENSE)
+[![GitHub issues](https://img.shields.io/github/issues/xuender/go-stream)](https://github.com/xuender/go-stream/issues)
+[![GitHub stars](https://img.shields.io/github/stars/xuender/go-stream)](https://github.com/xuender/gostream/stargazers)
 
 Stream Collections for Go. Inspired in Java 8 Streams.
 
