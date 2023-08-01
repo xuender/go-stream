@@ -1,5 +1,6 @@
 # go-stream
 
+[![GoCI](https://github.com/xuender/go-stream/workflows/Go/badge.svg)](https://github.com/xuender/go-stream/actions)
 [![Go Report Card](https://goreportcard.com/badge/github.com/xuender/go-stream)](https://goreportcard.com/report/github.com/xuender/go-stream)
 
 Stream Collections for Go. Inspired in Java 8 Streams.
