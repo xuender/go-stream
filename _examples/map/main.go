@@ -12,13 +12,13 @@ func main() {
 		return fmt.Sprintf("[%d]", num)
 	}).Limit(3)
 
-	go func(cha chan<- int) {
+	go func() {
 		for i := 0; i < 100; i++ {
-			cha <- i
+			input <- i
 		}
 
-		close(cha)
-	}(input)
+		close(input)
+	}()
 
 	for i := range base.C {
 		fmt.Println(i)
