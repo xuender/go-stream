@@ -8,7 +8,7 @@ Based on channel and go1.18 generic support.
 
 ## Install
 
-To install the library and command line program, use the following:
+To install the library and command line program:
 
 ```shell
 go get -u github.com/xuender/go-stream
