@@ -1,10 +1,12 @@
 # go-stream
 
+[![Go Report Card](https://goreportcard.com/badge/github.com/xuender/go-stream)](https://goreportcard.com/report/github.com/xuender/go-stream)
+
 Stream Collections for Go. Inspired in Java 8 Streams.
 
 Expect the support of Go 1.18 version generic.
 
-## Installation
+## Install
 
 To install the library and command line program, use the following:
 
@@ -111,6 +113,47 @@ Output:
 ...
 ```
 
+## Map
+
+int to string.
+
+```go
+package main
+
+import (
+  "fmt"
+
+  "github.com/xuender/go-stream"
+)
+
+func main() {
+  input := make(chan int)
+  base := stream.Map(input, func(num int) string {
+    return fmt.Sprintf("[%d]", num)
+  }).Limit(3)
+
+  go func(cha chan<- int) {
+    for i := 0; i < 100; i++ {
+      cha <- i
+    }
+
+    close(cha)
+  }(input)
+
+  for i := range base.C {
+    fmt.Println(i)
+  }
+}
+```
+
+Output:
+
+```shell
+[0]
+[1]
+[2]
+```
+
 ## Functions
 
 | Function | Type | State |
@@ -135,3 +178,9 @@ Output:
 | Sequential | Intermediate operations, Stateful | √ |
 | Map | Intermediate operations, Function | √ |
 | FlatMap | Intermediate operations, Function | √ |
+
+## License
+
+© ender, 2023~time.Now
+
+[MIT LICENSE](https://github.com/xuender/go-stream/blob/master/LICENSE)

@@ -8,7 +8,7 @@ import (
 
 func main() {
 	input := make(chan int)
-	array := stream.Map(input, func(num int) string {
+	base := stream.Map(input, func(num int) string {
 		return fmt.Sprintf("[%d]", num)
 	}).Limit(3)
 
@@ -20,7 +20,7 @@ func main() {
 		close(cha)
 	}(input)
 
-	for i := range array.C {
+	for i := range base.C {
 		fmt.Println(i)
 	}
 }
