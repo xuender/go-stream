@@ -58,20 +58,9 @@ func ExampleMapOrdered() {
 
 // ExampleMapComparable is an example function.
 func ExampleMapComparable() {
-	input := make(chan int)
+	input := stream.Slice2Channel(1, 1, 1, 2, 3, 3, 4)
 	com := stream.MapComparable(input, func(num int) string { return fmt.Sprintf("[%d]", num) }).
 		Distinct()
-
-	go func() {
-		input <- 1
-		input <- 1
-		input <- 2
-		input <- 3
-		input <- 3
-		input <- 4
-
-		close(input)
-	}()
 
 	time.Sleep(time.Millisecond)
 
