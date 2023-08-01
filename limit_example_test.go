@@ -12,12 +12,11 @@ func ExampleBaseStream_Limit() {
 	input := make(chan int)
 	defer close(input)
 
-	chs := stream.NewBase(input)
-
-	chs.Limit(3)
+	base := stream.NewBase(input).
+		Limit(3)
 
 	go func() {
-		for i := range chs.C {
+		for i := range base.C {
 			fmt.Println(i)
 		}
 	}()

@@ -25,5 +25,5 @@ func (p *BaseStream[T]) AllMatch(action FilterAction[T]) bool {
 }
 
 func (p *BaseStream[T]) NoneMatch(action FilterAction[T]) bool {
-	return !p.AllMatch(action)
+	return !p.AnyMatch(action)
 }

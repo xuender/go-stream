@@ -12,12 +12,12 @@ func Map[I, O any](input chan I, action MapAction[I, O]) *BaseStream[O] {
 	return NewBase[O](output)
 }
 
-func mapRun[I, O any](input <-chan I, output chan<- O, action MapAction[I, O]) {
-	for i := range input {
-		output <- action(i)
-	}
+func MapComparable[I any, O comparable](input chan I, action MapAction[I, O]) *ComparableStream[O] {
+	output := make(chan O)
 
-	close(output)
+	go mapRun(input, output, action)
+
+	return NewComparable(output)
 }
 
 func MapOrdered[I any, O constraints.Ordered](input chan I, action MapAction[I, O]) *OrderedStream[O] {
@@ -26,4 +26,12 @@ func MapOrdered[I any, O constraints.Ordered](input chan I, action MapAction[I, 
 	go mapRun(input, output, action)
 
 	return NewOrdered(output)
+}
+
+func mapRun[I, O any](input <-chan I, output chan<- O, action MapAction[I, O]) {
+	for elem := range input {
+		output <- action(elem)
+	}
+
+	close(output)
 }

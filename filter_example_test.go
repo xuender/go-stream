@@ -12,9 +12,8 @@ func ExampleBaseStream_Filter() {
 	input := make(chan int)
 	defer close(input)
 
-	chs := stream.NewBase(input)
-
-	chs.Filter(func(num int) bool { return num > 5 })
+	chs := stream.NewBase(input).
+		Filter(func(num int) bool { return num > 5 })
 
 	go func() {
 		for i := range chs.C {

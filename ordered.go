@@ -3,11 +3,11 @@ package stream
 import "golang.org/x/exp/constraints"
 
 type OrderedStream[O constraints.Ordered] struct {
-	BaseStream[O]
+	ComparableStream[O]
 }
 
 func NewOrdered[O constraints.Ordered](input chan O) *OrderedStream[O] {
-	return &OrderedStream[O]{BaseStream[O]{input}}
+	return &OrderedStream[O]{*NewComparable(input)}
 }
 
 func (p *OrderedStream[O]) Max() O {

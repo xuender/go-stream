@@ -10,12 +10,6 @@ func (p *BaseStream[T]) Filter(action FilterAction[T]) *BaseStream[T] {
 	return p
 }
 
-func (p *ParallelStream[T]) Filter(action FilterAction[T]) *ParallelStream[T] {
-	p.C = FilterParallel(p.C, p.Size, action)
-
-	return p
-}
-
 func Filter[T any](input <-chan T, action FilterAction[T]) chan T {
 	output := make(chan T)
 
@@ -32,6 +26,12 @@ func filter[T any](input <-chan T, output chan<- T, action FilterAction[T]) {
 	}
 
 	close(output)
+}
+
+func (p *ParallelStream[T]) Filter(action FilterAction[T]) *ParallelStream[T] {
+	p.C = FilterParallel(p.C, p.Size, action)
+
+	return p
 }
 
 func FilterParallel[T any](input <-chan T, size int, action FilterAction[T]) chan T {

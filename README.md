@@ -136,16 +136,17 @@ Output:
 | Min | Terminal operations | √ |
 | Parallel | Intermediate operations, Stateful | √ |
 | Limit | Intermediate operations, Stateful | √ |
+| Skip | Intermediate operations, Stateful | √ |
 | Filter | Intermediate operations, Stateless | √ |
-| Map | Intermediate operations, Stateless | √ |
 | Peek | Intermediate operations, Stateless | √ |
 | FindFirst | Terminal operations, short-circuiting | √ |
 | AnyMatch | Terminal operations, short-circuiting | √ |
 | AllMatch | Terminal operations, short-circuiting | √ |
-| NoneMatch | Terminal operations, short-circuiting | √  |
-| Sequential | Intermediate operations, Stateful |   |
-| Skip | Intermediate operations, Stateful |   |
-| Distinct | Intermediate operations, Stateful |   |
-| Sorted | Intermediate operations, Stateful |   |
-| FlatMap | Intermediate operations, Stateless |   |
-| Reduce | Terminal operations |   |
+| NoneMatch | Terminal operations, short-circuiting | √ |
+| Distinct | Intermediate operations, Stateful | √ |
+| Sorted | Intermediate operations, Stateful | √ |
+| Sort | Intermediate operations, Stateful | √ |
+| Reduce | Terminal operations | √ |
+| Sequential | Intermediate operations, Stateful | √ |
+| Map | Intermediate operations, Function | √ |
+| FlatMap | Intermediate operations, Function | √ |
