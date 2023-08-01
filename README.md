@@ -4,7 +4,7 @@
 
 Stream Collections for Go. Inspired in Java 8 Streams.
 
-Expect the support of Go 1.18 version generic.
+Based on channel and go1.18 generic support.
 
 ## Install
 
