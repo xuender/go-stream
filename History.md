@@ -1,4 +1,15 @@
 
+2.0.3 / 2023-08-02
+==================
+
+* feat: add Distribute
+* chore: Makefile
+* doc: example
+* doc: example
+* test: github
+* test: FlatMap
+* test: sorted & doc
+
 2.0.2 / 2023-08-02
 ==================
 
