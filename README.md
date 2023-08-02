@@ -10,7 +10,7 @@
 
 Stream Collections for Go. Inspired in Java 8 Streams.
 
-Use channel and go1.18 generic support.
+Use channel and Go1.18+ generic support.
 
 ✨ **`xuender/go-stream` is a Java Stream style Go library based on Go 1.18+ Generics.**
 
