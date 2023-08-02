@@ -10,19 +10,29 @@
 
 Stream Collections for Go. Inspired in Java 8 Streams.
 
-Based on channel and go1.18 generic support.
+Use channel and go1.18 generic support.
 
-## Install
+✨ **`xuender/go-stream` is a Java Stream style Go library based on Go 1.18+ Generics.**
+
+## 🚀 Install
 
 To install the library and command line program:
 
 ```shell
-go get -u github.com/xuender/go-stream
+go get -u github.com/xuender/go-stream@latest
 ```
 
-## Base
+## 💡 Usage
 
-BaseStream
+You can import `stream` using:
+
+```go
+import "github.com/xuender/go-stream"
+```
+
+### NewBase
+
+New BaseStream.
 
 ```go
 package main
@@ -56,9 +66,11 @@ peek2: 4
 2
 ```
 
-## Parallel
+[[play](https://go.dev/play/p/BsHl93sdVLw)]
 
-ParallelStream
+### Parallel
+
+BaseStream to ParallelStream.
 
 ```go
 package main
@@ -100,9 +112,11 @@ Output:
 ...
 ```
 
-## Map
+[[play](https://go.dev/play/p/CLqmB-Ni9FC)]
 
-int to string.
+### Map
+
+Integer to string.
 
 ```go
 package main
@@ -133,9 +147,11 @@ Output:
 [2]
 ```
 
-## FlatMap
+[[play](https://go.dev/play/p/o5vbxJwqfdI)]
 
-```golang
+### FlatMap
+
+```go
 package main
 
 import (
@@ -165,9 +181,13 @@ Output:
 [4]
 ```
 
-## Sorted
+[[play](https://go.dev/play/p/1O-Krx0Ee6b)]
 
-```golang
+### Sorted
+
+OrderedStream sorted.
+
+```go
 package main
 
 import (
@@ -194,7 +214,9 @@ Output:
 7
 ```
 
-## Functions
+[[play](https://go.dev/play/p/WhobF2xUJKh)]
+
+## 🛩 Functions
 
 | Function | Type | State |
 | - | - | - |
@@ -219,7 +241,7 @@ Output:
 | Map | Intermediate operations, Function | √ |
 | FlatMap | Intermediate operations, Function | √ |
 
-## License
+## 🛩 License
 
 © ender, 2023~time.Now
 
