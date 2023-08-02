@@ -6,7 +6,6 @@ import (
 	"github.com/xuender/go-stream"
 )
 
-// ExampleSlice2Channel is an example function.
 func ExampleSlice2Channel() {
 	for i := range stream.Slice2Channel(9, 1, 2, 3) {
 		fmt.Println(i)
@@ -18,7 +17,6 @@ func ExampleSlice2Channel() {
 	// 3
 }
 
-// ExampleRange2Channel is an example function.
 func ExampleRange2Channel() {
 	for i := range stream.Range2Channel(1, 3) {
 		fmt.Println(i)
@@ -37,7 +35,6 @@ func ExampleRange2Channel() {
 	// -2
 }
 
-// ExampleRangeFrom2Channel is an example function.
 func ExampleRangeFrom2Channel() {
 	for i := range stream.RangeFrom2Channel(1, 3, 2) {
 		fmt.Println(i)
@@ -55,7 +52,6 @@ func ExampleRangeFrom2Channel() {
 	// 6
 }
 
-// ExampleRangeWithSteps2Channel is an example function.
 func ExampleRangeWithSteps2Channel() {
 	for i := range stream.RangeWithSteps2Channel(1, 0, 4, 3) {
 		fmt.Println(i)

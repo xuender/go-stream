@@ -7,20 +7,9 @@ import (
 	"github.com/xuender/go-stream"
 )
 
-// ExampleBaseStream_ForEach is an example function.
 func ExampleBaseStream_ForEach() {
-	input := make(chan int)
-	chs := stream.NewBase(input)
-
-	go func() {
-		for i := 0; i < 10; i++ {
-			input <- i
-		}
-
-		close(input)
-	}()
-
-	chs.ForEach(func(num int) { fmt.Println(num) })
+	stream.NewBase(stream.Range2Channel(1, 10)).
+		ForEach(func(num int) { fmt.Println(num) })
 
 	// Output:
 	// 0
@@ -35,23 +24,12 @@ func ExampleBaseStream_ForEach() {
 	// 9
 }
 
-// ExampleParallelStream_ForEach is an example function.
 func ExampleParallelStream_ForEach() {
-	input := make(chan int)
-	chs := stream.NewParallel(input, 3)
-
-	go func() {
-		for i := 0; i < 3; i++ {
-			input <- i
-		}
-
-		close(input)
-	}()
-
-	chs.ForEach(func(num int) {
-		time.Sleep(time.Duration(3-num) * time.Millisecond)
-		fmt.Println(num)
-	})
+	stream.NewParallel(stream.Range2Channel(1, 3), 3).
+		ForEach(func(num int) {
+			time.Sleep(time.Duration(3-num) * time.Millisecond)
+			fmt.Println(num)
+		})
 
 	// Output:
 	// 2

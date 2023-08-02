@@ -1,4 +1,4 @@
-package stream_test
+package main
 
 import (
 	"fmt"
@@ -6,16 +6,10 @@ import (
 	"github.com/xuender/go-stream"
 )
 
-func ExampleOrderedStream_Reduce() {
+func main() {
 	stream.NewOrdered(stream.Slice2Channel(1, 3, 2, 7, 1)).
-		Reduce().
+		Sorted().
 		ForEach(func(num int) {
 			fmt.Println(num)
 		})
-
-	// Output:
-	// 7
-	// 3
-	// 2
-	// 1
 }

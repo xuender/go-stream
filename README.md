@@ -116,9 +116,7 @@ import (
 func main() {
   base := stream.Map(
     stream.Range2Channel(1, 100),
-    func(num int) string {
-      return fmt.Sprintf("[%d]", num)
-    },
+    func(num int) string { return fmt.Sprintf("[%d]", num) },
   ).Limit(3)
 
   for i := range base.C {
@@ -133,6 +131,35 @@ Output:
 [0]
 [1]
 [2]
+```
+
+## Sorted
+
+```golang
+package main
+
+import (
+  "fmt"
+
+  "github.com/xuender/go-stream"
+)
+
+func main() {
+  stream.NewOrdered(stream.Slice2Channel(1, 3, 2, 7, 1)).
+    Sorted().
+    ForEach(func(num int) {
+      fmt.Println(num)
+    })
+}
+```
+
+Output:
+
+```shell
+1
+2
+3
+7
 ```
 
 ## Functions

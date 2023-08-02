@@ -2,30 +2,16 @@ package stream_test
 
 import (
 	"fmt"
-	"time"
 
 	"github.com/xuender/go-stream"
 )
 
-// ExampleBaseStream_Limit is an example function.
 func ExampleBaseStream_Limit() {
-	input := make(chan int)
-	defer close(input)
-
-	base := stream.NewBase(input).
-		Limit(3)
-
-	go func() {
-		for i := range base.C {
-			fmt.Println(i)
-		}
-	}()
-
-	for i := 0; i < 10; i++ {
-		input <- i
-	}
-
-	time.Sleep(time.Millisecond)
+	stream.NewBase(stream.Range2Channel(1, 10)).
+		Limit(3).
+		ForEach(func(num int) {
+			fmt.Println(num)
+		})
 
 	// Output:
 	// 0
@@ -33,45 +19,18 @@ func ExampleBaseStream_Limit() {
 	// 2
 }
 
-// ExampleLimit is an example function.
 func ExampleLimit() {
-	input := make(chan int)
-	defer close(input)
-
-	chi := stream.Limit(input, 0)
-
-	go func() {
-		for i := range chi {
-			fmt.Println(i)
-		}
-	}()
-
-	for i := 0; i < 10; i++ {
-		input <- i
+	for num := range stream.Limit(stream.Range2Channel(1, 10), 0) {
+		fmt.Println(num)
 	}
-
-	time.Sleep(time.Millisecond)
 
 	// Output:
 }
 
 func ExampleLimit_out() {
-	input := make(chan int)
-	defer close(input)
-
-	chi := stream.Limit(input, 3)
-
-	go func() {
-		for i := range chi {
-			fmt.Println(i)
-		}
-	}()
-
-	for i := 0; i < 2; i++ {
-		input <- i
+	for num := range stream.Limit(stream.Range2Channel(1, 2), 30) {
+		fmt.Println(num)
 	}
-
-	time.Sleep(time.Millisecond)
 
 	// Output:
 	// 0

@@ -9,12 +9,10 @@ import (
 func main() {
 	base := stream.Map(
 		stream.Range2Channel(1, 100),
-		func(num int) string {
-			return fmt.Sprintf("[%d]", num)
-		},
+		func(num int) string { return fmt.Sprintf("[%d]", num) },
 	).Limit(3)
 
-	for i := range base.C {
-		fmt.Println(i)
+	for num := range base.C {
+		fmt.Println(num)
 	}
 }

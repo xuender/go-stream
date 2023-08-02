@@ -2,32 +2,21 @@ package stream_test
 
 import (
 	"fmt"
-	"time"
 
 	"github.com/xuender/go-stream"
 )
 
-// ExampleMap is an example function.
 func ExampleMap() {
-	input := make(chan int)
-	defer close(input)
+	base1 := stream.NewBase(stream.Range2Channel(1, 10)).
+		Filter(func(num int) bool { return num > 5 })
+	base2 := stream.Map(
+		base1.C,
+		func(num int) string { return fmt.Sprintf("[%d]", num) },
+	)
 
-	base := stream.NewBase(input)
-
-	base.Filter(func(num int) bool { return num > 5 })
-	newBase := stream.Map(base.C, func(num int) string { return fmt.Sprintf("[%d]", num) })
-
-	go func() {
-		for i := range newBase.C {
-			fmt.Println(i)
-		}
-	}()
-
-	for i := 0; i < 10; i++ {
-		input <- i
+	for num := range base2.C {
+		fmt.Println(num)
 	}
-
-	time.Sleep(time.Millisecond)
 
 	// Output:
 	// [6]
@@ -36,33 +25,23 @@ func ExampleMap() {
 	// [9]
 }
 
-// ExampleMapOrdered is an example function.
 func ExampleMapOrdered() {
-	input := make(chan int)
-	ordered := stream.MapOrdered(input, func(num int) string { return fmt.Sprintf("[%d]", num) })
+	ordered := stream.MapOrdered(
+		stream.Range2Channel(1, 10),
+		func(num int) string { return fmt.Sprintf("[%d]", num) },
+	)
 
-	go func() {
-		for i := 0; i < 10; i++ {
-			input <- i
-		}
-
-		close(input)
-	}()
-
-	time.Sleep(time.Millisecond)
 	fmt.Println(ordered.Max())
 
 	// Output:
 	// [9]
 }
 
-// ExampleMapComparable is an example function.
 func ExampleMapComparable() {
-	input := stream.Slice2Channel(1, 1, 1, 2, 3, 3, 4)
-	com := stream.MapComparable(input, func(num int) string { return fmt.Sprintf("[%d]", num) }).
-		Distinct()
-
-	time.Sleep(time.Millisecond)
+	com := stream.MapComparable(
+		stream.Slice2Channel(1, 1, 1, 2, 3, 3, 4),
+		func(num int) string { return fmt.Sprintf("[%d]", num) },
+	).Distinct()
 
 	for i := range com.C {
 		fmt.Println(i)

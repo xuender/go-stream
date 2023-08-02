@@ -2,30 +2,16 @@ package stream_test
 
 import (
 	"fmt"
-	"time"
 
 	"github.com/xuender/go-stream"
 )
 
-// ExampleBaseStream_Filter is an example function.
 func ExampleBaseStream_Filter() {
-	input := make(chan int)
-	defer close(input)
-
-	chs := stream.NewBase(input).
-		Filter(func(num int) bool { return num > 5 })
-
-	go func() {
-		for i := range chs.C {
-			fmt.Println(i)
-		}
-	}()
-
-	for i := 0; i < 10; i++ {
-		input <- i
-	}
-
-	time.Sleep(time.Millisecond)
+	stream.NewBase(stream.Range2Channel(1, 10)).
+		Filter(func(num int) bool { return num > 5 }).
+		ForEach(func(num int) {
+			fmt.Println(num)
+		})
 
 	// Output:
 	// 6
@@ -34,24 +20,15 @@ func ExampleBaseStream_Filter() {
 	// 9
 }
 
-// ExampleFilter is an example function.
 func ExampleFilter() {
-	input := make(chan int)
-	defer close(input)
+	chi := stream.Filter(
+		stream.Range2Channel(1, 10),
+		func(num int) bool { return num > 5 },
+	)
 
-	chi := stream.Filter(input, func(num int) bool { return num > 5 })
-
-	go func() {
-		for i := range chi {
-			fmt.Println(i)
-		}
-	}()
-
-	for i := 0; i < 10; i++ {
-		input <- i
+	for i := range chi {
+		fmt.Println(i)
 	}
-
-	time.Sleep(time.Millisecond)
 
 	// Output:
 	// 6
@@ -60,26 +37,13 @@ func ExampleFilter() {
 	// 9
 }
 
-// ExampleParallelStream_Filter is an example function.
 func ExampleParallelStream_Filter() {
-	input := make(chan int)
-	defer close(input)
-
-	chs := stream.NewBase(input).
+	stream.NewBase(stream.Range2Channel(1, 10)).
 		Parallel(3).
-		Filter(func(num int) bool { return num > 5 })
-
-	go func() {
-		for range chs.C {
+		Filter(func(num int) bool { return num > 5 }).
+		ForEach(func(_ int) {
 			fmt.Println("x")
-		}
-	}()
-
-	for i := 0; i < 10; i++ {
-		input <- i
-	}
-
-	time.Sleep(time.Millisecond)
+		})
 
 	// Output:
 	// x

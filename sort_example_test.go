@@ -6,24 +6,12 @@ import (
 	"github.com/xuender/go-stream"
 )
 
-// ExampleBaseStream_Sort is an example function.
 func ExampleBaseStream_Sort() {
-	input := make(chan int)
-	order := stream.NewBase(input).
-		Sort(func(num1, num2 int) bool { return num2 < num1 })
-
-	go func() {
-		input <- 3
-		input <- 2
-		input <- 7
-		input <- 1
-
-		close(input)
-	}()
-
-	for elem := range order.C {
-		fmt.Println(elem)
-	}
+	stream.NewBase(stream.Slice2Channel(1, 3, 2, 7, 1)).
+		Sort(func(num1, num2 int) bool { return num2 < num1 }).
+		ForEach(func(num int) {
+			fmt.Println(num)
+		})
 
 	// Output:
 	// 7
