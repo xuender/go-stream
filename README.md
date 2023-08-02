@@ -34,19 +34,10 @@ import (
 )
 
 func main() {
-  input := make(chan int)
-  base := stream.NewBase(input).
+  base := stream.NewBase(stream.Range2Channel(1, 5)).
     Peek(func(num int) { fmt.Println("peek1:", num) }).
-    Filter(func(num int) bool { return num > 1 }).
+    Filter(func(num int) bool { return num > 2 }).
     Peek(func(num int) { fmt.Println("peek2:", num) })
-
-  go func() {
-    for i := 1; i < 5; i++ {
-      input <- i
-    }
-
-    close(input)
-  }()
 
   fmt.Println(base.Count())
 }
@@ -55,14 +46,14 @@ func main() {
 Output:
 
 ```shell
+peek1: 0
 peek1: 1
 peek1: 2
 peek1: 3
-peek2: 2
-peek2: 3
 peek1: 4
+peek2: 3
 peek2: 4
-3
+2
 ```
 
 ## Parallel
@@ -81,25 +72,15 @@ import (
 )
 
 func main() {
-  input := make(chan int)
-  parallel := stream.NewBase(input).
+  stream.NewBase(stream.Range2Channel(1, 1000)).
     Parallel(100).
-    Filter(func(t int) bool { return t%7 == 0 })
+    Filter(func(num int) bool { return num%7 == 0 }).
+    ForEach(func(num int) {
+      dur := time.Duration(rand.Intn(1000))
 
-  go func() {
-    for i := 0; i < 1000; i++ {
-      input <- i
-    }
-
-    close(input)
-  }()
-
-  parallel.ForEach(func(num int) {
-    dur := time.Duration(rand.Intn(1000))
-
-    time.Sleep(time.Millisecond * dur)
-    fmt.Printf("%d\t%dms\n", num, dur)
-  })
+      time.Sleep(time.Millisecond * dur)
+      fmt.Printf("%d\t%dms\n", num, dur)
+    })
 }
 ```
 
@@ -133,18 +114,12 @@ import (
 )
 
 func main() {
-  input := make(chan int)
-  base := stream.Map(input, func(num int) string {
-    return fmt.Sprintf("[%d]", num)
-  }).Limit(3)
-
-  go func(cha chan<- int) {
-    for i := 0; i < 100; i++ {
-      cha <- i
-    }
-
-    close(cha)
-  }(input)
+  base := stream.Map(
+    stream.Range2Channel(1, 100),
+    func(num int) string {
+      return fmt.Sprintf("[%d]", num)
+    },
+  ).Limit(3)
 
   for i := range base.C {
     fmt.Println(i)

@@ -7,19 +7,10 @@ import (
 )
 
 func main() {
-	input := make(chan int)
-	base := stream.NewBase(input).
+	base := stream.NewBase(stream.Range2Channel(1, 5)).
 		Peek(func(num int) { fmt.Println("peek1:", num) }).
-		Filter(func(num int) bool { return num > 1 }).
+		Filter(func(num int) bool { return num > 2 }).
 		Peek(func(num int) { fmt.Println("peek2:", num) })
-
-	go func() {
-		for i := 1; i < 5; i++ {
-			input <- i
-		}
-
-		close(input)
-	}()
 
 	fmt.Println(base.Count())
 }

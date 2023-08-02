@@ -7,17 +7,8 @@ import (
 )
 
 func main() {
-	input := make(chan int)
-	base := stream.NewBase(input).
+	base := stream.NewBase(stream.Range2Channel(1, 10)).
 		Filter(func(num int) bool { return num > 5 })
-
-	go func(cha chan<- int) {
-		for i := 0; i < 10; i++ {
-			cha <- i
-		}
-
-		close(cha)
-	}(input)
 
 	fmt.Println(base.Count())
 }

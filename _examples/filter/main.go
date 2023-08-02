@@ -5,18 +5,8 @@ import (
 )
 
 func main() {
-	input := make(chan int)
-	base := stream.NewBase(input)
-
-	base.Filter(func(t int) bool { return t%5 == 0 })
-
-	go func(cha chan<- int) {
-		for i := 0; i < 100; i++ {
-			cha <- i
-		}
-
-		close(cha)
-	}(input)
+	base := stream.NewBase(stream.Range2Channel(1, 100)).
+		Filter(func(num int) bool { return num%7 == 0 })
 
 	for i := range base.C {
 		println(i)

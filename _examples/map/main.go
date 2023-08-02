@@ -7,18 +7,12 @@ import (
 )
 
 func main() {
-	input := make(chan int)
-	base := stream.Map(input, func(num int) string {
-		return fmt.Sprintf("[%d]", num)
-	}).Limit(3)
-
-	go func() {
-		for i := 0; i < 100; i++ {
-			input <- i
-		}
-
-		close(input)
-	}()
+	base := stream.Map(
+		stream.Range2Channel(1, 100),
+		func(num int) string {
+			return fmt.Sprintf("[%d]", num)
+		},
+	).Limit(3)
 
 	for i := range base.C {
 		fmt.Println(i)

@@ -44,15 +44,10 @@ func RangeFrom2Channel(size, start, length int) chan int {
 	return output
 }
 
-func RangeWithSteps2Channel(size, start, length, step int) chan int {
+func RangeWithSteps2Channel(size, start, end, step int) chan int {
 	output := make(chan int, size)
-	max := length*step + start
 
-	if length < 0 {
-		step *= -1
-	}
-
-	go range2Channel(output, start, max, step)
+	go range2Channel(output, start, end, step)
 
 	return output
 }

@@ -57,11 +57,11 @@ func ExampleRangeFrom2Channel() {
 
 // ExampleRangeWithSteps2Channel is an example function.
 func ExampleRangeWithSteps2Channel() {
-	for i := range stream.RangeWithSteps2Channel(1, 0, 2, 3) {
+	for i := range stream.RangeWithSteps2Channel(1, 0, 4, 3) {
 		fmt.Println(i)
 	}
 
-	for i := range stream.RangeWithSteps2Channel(1, 9, -2, 3) {
+	for i := range stream.RangeWithSteps2Channel(1, 9, 5, -3) {
 		fmt.Println(i)
 	}
 
