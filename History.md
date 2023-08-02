@@ -1,4 +1,20 @@
 
+2.0.2 / 2023-08-02
+==================
+
+* feat: channels
+* feat: chan
+* doc: filter, limit, peek
+* doc: badge
+* chore: GoCI
+* chore: main
+* chore: github
+* test: map
+* chore: github
+* chore: github
+* doc: readme
+* doc: map
+
 2.0.1 / 2023-08-01
 ==================
 
