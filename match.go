@@ -3,7 +3,7 @@ package stream
 func (p *BaseStream[T]) AnyMatch(action FilterAction[T]) bool {
 	for elem := range p.C {
 		if action(elem) {
-			go Consume(p.C)
+			go Count(p.C)
 
 			return true
 		}
@@ -15,7 +15,7 @@ func (p *BaseStream[T]) AnyMatch(action FilterAction[T]) bool {
 func (p *BaseStream[T]) AllMatch(action FilterAction[T]) bool {
 	for elem := range p.C {
 		if !action(elem) {
-			go Consume(p.C)
+			go Count(p.C)
 
 			return false
 		}

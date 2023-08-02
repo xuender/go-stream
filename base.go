@@ -9,19 +9,13 @@ func NewBase[T any](input chan T) *BaseStream[T] {
 }
 
 func (p *BaseStream[T]) Count() int {
-	count := 0
-
-	for range p.C {
-		count++
-	}
-
-	return count
+	return Count(p.C)
 }
 
 func (p *BaseStream[T]) FindFirst() T {
 	ret := <-p.C
 
-	go Consume(p.C)
+	go Count(p.C)
 
 	return ret
 }

@@ -8,19 +8,13 @@ func (p *BaseStream[T]) Limit(maxSize int) *BaseStream[T] {
 	return p
 }
 
-func Consume[T any](input <-chan T) {
-	// nolint: revive
-	for range input {
-	}
-}
-
 // Limit returns a channel consisting of the elements of input channel,
 // truncated to be no longer than maxSize in length.
 func Limit[T any](input <-chan T, maxSize int) chan T {
 	output := make(chan T)
 
 	if maxSize <= 0 {
-		go Consume(input)
+		go Count(input)
 		close(output)
 
 		return output
@@ -38,7 +32,7 @@ func Limit[T any](input <-chan T, maxSize int) chan T {
 			}
 		}
 
-		go Consume(input)
+		go Count(input)
 		close(output)
 	}()
 

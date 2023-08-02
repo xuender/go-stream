@@ -71,3 +71,13 @@ func Distribute[T any](input <-chan T, output1, output2 chan<- T) {
 	close(output1)
 	close(output2)
 }
+
+func Count[T any](input <-chan T) int {
+	count := 0
+
+	for range input {
+		count++
+	}
+
+	return count
+}
