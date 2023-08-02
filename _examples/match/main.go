@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	base1 := stream.NewBase(stream.Range2Channel(1, 10))
+	base1 := stream.NewBase(stream.Range2Channel(10))
 	base2 := stream.NewBase(stream.Copy(base1))
 
 	fmt.Println(base1.AnyMatch(func(num int) bool { return num > 100 }))

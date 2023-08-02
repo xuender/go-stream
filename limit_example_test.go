@@ -7,7 +7,7 @@ import (
 )
 
 func ExampleBaseStream_Limit() {
-	stream.NewBase(stream.Range2Channel(1, 10)).
+	stream.NewBase(stream.Range2Channel(10)).
 		Limit(3).
 		ForEach(func(num int) {
 			fmt.Println(num)

@@ -7,7 +7,7 @@ import (
 )
 
 func ExampleBaseStream_Sort() {
-	stream.NewBase(stream.Slice2Channel(1, 3, 2, 7, 1)).
+	stream.NewBase(stream.Slice2Channel(3, 2, 7, 1)).
 		Sort(func(num1, num2 int) bool { return num2 < num1 }).
 		ForEach(func(num int) {
 			fmt.Println(num)

@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	stream.NewBase(stream.Range2Channel(1, 1000)).
+	stream.NewBase(stream.Range2Channel(1000)).
 		Parallel(100).
 		Filter(func(num int) bool { return num%7 == 0 }).
 		ForEach(func(num int) {

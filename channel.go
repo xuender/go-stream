@@ -1,7 +1,7 @@
 package stream
 
-func Slice2Channel[T any](size int, elems ...T) chan T {
-	output := make(chan T, size)
+func Slice2Channel[T any](elems ...T) chan T {
+	output := make(chan T)
 
 	go slice2Channel(output, elems)
 
@@ -16,8 +16,8 @@ func slice2Channel[T any](output chan<- T, elems []T) {
 	close(output)
 }
 
-func Range2Channel(size, length int) chan int {
-	output := make(chan int, size)
+func Range2Channel(length int) chan int {
+	output := make(chan int)
 	step := 1
 
 	if length < 0 {
@@ -29,8 +29,8 @@ func Range2Channel(size, length int) chan int {
 	return output
 }
 
-func RangeFrom2Channel(size, start, length int) chan int {
-	output := make(chan int, size)
+func RangeFrom2Channel(start, length int) chan int {
+	output := make(chan int)
 	step := 1
 
 	if length < 0 {
@@ -44,8 +44,8 @@ func RangeFrom2Channel(size, start, length int) chan int {
 	return output
 }
 
-func RangeWithSteps2Channel(size, start, end, step int) chan int {
-	output := make(chan int, size)
+func RangeWithSteps2Channel(start, end, step int) chan int {
+	output := make(chan int)
 
 	go range2Channel(output, start, end, step)
 

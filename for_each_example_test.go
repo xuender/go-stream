@@ -8,7 +8,7 @@ import (
 )
 
 func ExampleBaseStream_ForEach() {
-	stream.NewBase(stream.Range2Channel(1, 10)).
+	stream.NewBase(stream.Range2Channel(10)).
 		ForEach(func(num int) { fmt.Println(num) })
 
 	// Output:
@@ -25,7 +25,7 @@ func ExampleBaseStream_ForEach() {
 }
 
 func ExampleParallelStream_ForEach() {
-	stream.NewParallel(stream.Range2Channel(1, 3), 3).
+	stream.NewParallel(stream.Range2Channel(3), 3).
 		ForEach(func(num int) {
 			time.Sleep(time.Duration((3-num)*100) * time.Millisecond)
 			fmt.Println(num)

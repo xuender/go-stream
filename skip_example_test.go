@@ -7,7 +7,7 @@ import (
 )
 
 func ExampleBaseStream_Skip() {
-	stream.NewBase(stream.Range2Channel(1, 6)).
+	stream.NewBase(stream.Range2Channel(6)).
 		Skip(4).
 		ForEach(func(num int) {
 			fmt.Println(num)

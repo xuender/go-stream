@@ -7,7 +7,7 @@ import (
 )
 
 func ExampleMap() {
-	base1 := stream.NewBase(stream.Range2Channel(1, 10)).
+	base1 := stream.NewBase(stream.Range2Channel(10)).
 		Filter(func(num int) bool { return num > 5 })
 	base2 := stream.Map(
 		base1.C,
@@ -27,7 +27,7 @@ func ExampleMap() {
 
 func ExampleMapOrdered() {
 	ordered := stream.MapOrdered(
-		stream.Range2Channel(1, 10),
+		stream.Range2Channel(10),
 		func(num int) string { return fmt.Sprintf("[%d]", num) },
 	)
 

@@ -7,7 +7,7 @@ import (
 )
 
 func ExampleBaseStream_Filter() {
-	stream.NewBase(stream.Range2Channel(1, 10)).
+	stream.NewBase(stream.Range2Channel(10)).
 		Filter(func(num int) bool { return num > 5 }).
 		ForEach(func(num int) {
 			fmt.Println(num)
@@ -22,7 +22,7 @@ func ExampleBaseStream_Filter() {
 
 func ExampleFilter() {
 	chi := stream.Filter(
-		stream.Range2Channel(1, 10),
+		stream.Range2Channel(10),
 		func(num int) bool { return num > 5 },
 	)
 
@@ -38,7 +38,7 @@ func ExampleFilter() {
 }
 
 func ExampleParallelStream_Filter() {
-	stream.NewBase(stream.Range2Channel(1, 10)).
+	stream.NewBase(stream.Range2Channel(10)).
 		Parallel(3).
 		Filter(func(num int) bool { return num > 5 }).
 		ForEach(func(_ int) {

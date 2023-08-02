@@ -12,7 +12,7 @@ Stream Collections for Go. Inspired in Java 8 Streams.
 
 Use channel and Go1.18+ generic support.
 
-✨ **`xuender/go-stream` is a Java Stream style Go library based on Go 1.18+ Generics.**
+✨ **`xuender/go-stream` is a Java 8 Streams style Go library based on Go 1.18+ Generics.**
 
 ## 🚀 Install
 
@@ -44,7 +44,7 @@ import (
 )
 
 func main() {
-  base := stream.NewBase(stream.Range2Channel(1, 5)).
+  base := stream.NewBase(stream.Range2Channel(5)).
     Peek(func(num int) { fmt.Println("peek1:", num) }).
     Filter(func(num int) bool { return num > 2 }).
     Peek(func(num int) { fmt.Println("peek2:", num) })
@@ -84,7 +84,7 @@ import (
 )
 
 func main() {
-  stream.NewBase(stream.Range2Channel(1, 1000)).
+  stream.NewBase(stream.Range2Channel(1000)).
     Parallel(100).
     Filter(func(num int) bool { return num%7 == 0 }).
     ForEach(func(num int) {
@@ -129,7 +129,7 @@ import (
 
 func main() {
   base := stream.Map(
-    stream.Range2Channel(1, 100),
+    stream.Range2Channel(100),
     func(num int) string { return fmt.Sprintf("[%d]", num) },
   ).Limit(3)
 
@@ -162,7 +162,7 @@ import (
 
 func main() {
   stream.FlatMap(
-    stream.Slice2Channel(1, []int{0, 0}, []int{1, 2}, []int{2, 4}),
+    stream.Slice2Channel([]int{0, 0}, []int{1, 2}, []int{2, 4}),
     func(num int) string { return fmt.Sprintf("[%d]", num) },
   ).ForEach(func(str string) {
     fmt.Println(str)
@@ -197,7 +197,7 @@ import (
 )
 
 func main() {
-  stream.NewOrdered(stream.Slice2Channel(1, 3, 2, 7, 1)).
+  stream.NewOrdered(stream.Slice2Channel(3, 2, 7, 1)).
     Sorted().
     ForEach(func(num int) {
       fmt.Println(num)

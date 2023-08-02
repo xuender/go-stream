@@ -7,7 +7,7 @@ import (
 )
 
 func ExampleOrderedStream_Min() {
-	ordered := stream.MapOrdered(stream.Range2Channel(1, 10), func(num int) string { return fmt.Sprintf("[%d]", num) })
+	ordered := stream.MapOrdered(stream.Range2Channel(10), func(num int) string { return fmt.Sprintf("[%d]", num) })
 
 	fmt.Println(ordered.Min())
 

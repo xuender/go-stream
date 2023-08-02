@@ -8,7 +8,7 @@ import (
 
 func ExampleFlatMap() {
 	stream.FlatMap(
-		stream.Slice2Channel(1, []int{0, 0}, []int{1, 2}, []int{2, 4}),
+		stream.Slice2Channel([]int{0, 0}, []int{1, 2}, []int{2, 4}),
 		func(num int) string { return fmt.Sprintf("[%d]", num) },
 	).ForEach(func(str string) {
 		fmt.Println(str)
@@ -25,7 +25,7 @@ func ExampleFlatMap() {
 
 func ExampleFlatMapComparable() {
 	stream.FlatMapOrdered(
-		stream.Slice2Channel(1, []int{1, 2}, []int{2, 4}, []int{3, 6}),
+		stream.Slice2Channel([]int{1, 2}, []int{2, 4}, []int{3, 6}),
 		func(num int) string { return fmt.Sprintf("[%d]", num) },
 	).
 		Sorted().
@@ -43,7 +43,7 @@ func ExampleFlatMapComparable() {
 }
 
 func ExampleFlatMapOrdered() {
-	stream.FlatMapComparable(stream.Slice2Channel(1, []int{1, 2}, []int{1, 2}, []int{2, 4},
+	stream.FlatMapComparable(stream.Slice2Channel([]int{1, 2}, []int{1, 2}, []int{2, 4},
 		[]int{3, 6}, []int{3, 6}, []int{4, 8}),
 		func(num int) string { return fmt.Sprintf("[%d]", num) },
 	).

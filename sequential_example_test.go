@@ -7,7 +7,7 @@ import (
 )
 
 func ExampleParallelStream_Sequential() {
-	strea := stream.NewParallel(stream.Range2Channel(1, 10), 10).
+	strea := stream.NewParallel(stream.Range2Channel(10), 10).
 		Sequential().
 		Filter(func(num int) bool { return num > 5 })
 

@@ -7,7 +7,7 @@ import (
 )
 
 func ExampleSlice2Channel() {
-	for i := range stream.Slice2Channel(9, 1, 2, 3) {
+	for i := range stream.Slice2Channel(1, 2, 3) {
 		fmt.Println(i)
 	}
 
@@ -18,11 +18,11 @@ func ExampleSlice2Channel() {
 }
 
 func ExampleRange2Channel() {
-	for i := range stream.Range2Channel(1, 3) {
+	for i := range stream.Range2Channel(3) {
 		fmt.Println(i)
 	}
 
-	for i := range stream.Range2Channel(1, -3) {
+	for i := range stream.Range2Channel(-3) {
 		fmt.Println(i)
 	}
 
@@ -36,11 +36,11 @@ func ExampleRange2Channel() {
 }
 
 func ExampleRangeFrom2Channel() {
-	for i := range stream.RangeFrom2Channel(1, 3, 2) {
+	for i := range stream.RangeFrom2Channel(3, 2) {
 		fmt.Println(i)
 	}
 
-	for i := range stream.RangeFrom2Channel(1, 8, -3) {
+	for i := range stream.RangeFrom2Channel(8, -3) {
 		fmt.Println(i)
 	}
 
@@ -53,11 +53,11 @@ func ExampleRangeFrom2Channel() {
 }
 
 func ExampleRangeWithSteps2Channel() {
-	for i := range stream.RangeWithSteps2Channel(1, 0, 4, 3) {
+	for i := range stream.RangeWithSteps2Channel(0, 4, 3) {
 		fmt.Println(i)
 	}
 
-	for i := range stream.RangeWithSteps2Channel(1, 9, 5, -3) {
+	for i := range stream.RangeWithSteps2Channel(9, 5, -3) {
 		fmt.Println(i)
 	}
 

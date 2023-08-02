@@ -10,7 +10,7 @@ import (
 func ExampleBaseStream_Peek() {
 	count1 := 0
 	count2 := 0
-	base := stream.NewBase(stream.Range2Channel(1, 3)).
+	base := stream.NewBase(stream.Range2Channel(3)).
 		Peek(func(num int) { count1++ }).
 		Filter(func(num int) bool { return num%2 == 0 }).
 		Peek(func(num int) { count2++ })
@@ -26,7 +26,7 @@ func ExampleBaseStream_Peek() {
 }
 
 func ExampleParallelStream_Peek() {
-	count := stream.NewParallel(stream.Range2Channel(1, 3), 3).
+	count := stream.NewParallel(stream.Range2Channel(3), 3).
 		Peek(func(num int) {
 			time.Sleep(time.Duration((3-num)*100) * time.Millisecond)
 			fmt.Println(num)

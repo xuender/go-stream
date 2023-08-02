@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	base := stream.NewBase(stream.Range2Channel(1, 10)).
+	base := stream.NewBase(stream.Range2Channel(10)).
 		Filter(func(num int) bool { return num > 5 })
 
 	fmt.Println(base.Count())

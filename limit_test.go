@@ -10,7 +10,7 @@ func TestLimit(t *testing.T) {
 	t.Parallel()
 
 	sum := 0
-	for num := range stream.Limit(stream.Range2Channel(1, 10), 30) {
+	for num := range stream.Limit(stream.Range2Channel(10), 30) {
 		sum += num
 	}
 
@@ -19,7 +19,7 @@ func TestLimit(t *testing.T) {
 	}
 
 	sum = 0
-	for num := range stream.Limit(stream.Range2Channel(1, 10), 0) {
+	for num := range stream.Limit(stream.Range2Channel(10), 0) {
 		sum += num
 	}
 

@@ -7,7 +7,7 @@ import (
 )
 
 func ExampleComparableStream_Distinct() {
-	stream.NewComparable(stream.Slice2Channel(1, 1, 1, 2, 3, 3, 4)).
+	stream.NewComparable(stream.Slice2Channel(1, 1, 2, 3, 3, 4)).
 		Distinct().
 		ForEach(func(num int) {
 			fmt.Println(num)
