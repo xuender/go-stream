@@ -220,26 +220,26 @@ Output:
 
 | Function | Type | State |
 | - | - | - |
-| ForEach | Terminal operations | √ |
-| Count | Terminal operations | √ |
-| Max | Terminal operations | √ |
-| Min | Terminal operations | √ |
-| Parallel | Intermediate operations, Stateful | √ |
-| Limit | Intermediate operations, Stateful | √ |
-| Skip | Intermediate operations, Stateful | √ |
-| Filter | Intermediate operations, Stateless | √ |
-| Peek | Intermediate operations, Stateless | √ |
-| FindFirst | Terminal operations, short-circuiting | √ |
 | AnyMatch | Terminal operations, short-circuiting | √ |
 | AllMatch | Terminal operations, short-circuiting | √ |
+| Count | Terminal operations | √ |
+| Filter | Intermediate operations, Parallel | √ |
+| FindFirst | Terminal operations, short-circuiting | √ |
+| ForEach | Terminal operations, Parallel | √ |
+| Limit | Intermediate operations | √ |
 | NoneMatch | Terminal operations, short-circuiting | √ |
-| Distinct | Intermediate operations, Stateful | √ |
-| Sorted | Intermediate operations, Stateful | √ |
-| Sort | Intermediate operations, Stateful | √ |
-| Reduce | Terminal operations | √ |
-| Sequential | Intermediate operations, Stateful | √ |
-| Map | Intermediate operations, Function | √ |
-| FlatMap | Intermediate operations, Function | √ |
+| Parallel | Intermediate operations | √ |
+| Peek | Intermediate operations, Parallel | √ |
+| Skip | Intermediate operations | √ |
+| Sort | Intermediate operations | √ |
+| Distinct | Intermediate operations, Comparable | √ |
+| Max | Terminal operations, Ordered | √ |
+| Min | Terminal operations, Ordered | √ |
+| Reduce | Terminal operations, Ordered | √ |
+| Sorted | Intermediate operations, Ordered | √ |
+| Sequential | Intermediate operations, Parallel | √ |
+| Map | Function | √ |
+| FlatMap | Function | √ |
 
 ## 📝 License
 

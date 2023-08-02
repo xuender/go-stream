@@ -23,9 +23,9 @@ func Filter[T any](input <-chan T, action FilterAction[T]) chan T {
 }
 
 func filter[T any](input <-chan T, output chan<- T, action FilterAction[T]) {
-	for i := range input {
-		if action(i) {
-			output <- i
+	for elem := range input {
+		if action(elem) {
+			output <- elem
 		}
 	}
 
@@ -52,20 +52,20 @@ func FilterParallel[T any](input <-chan T, size int, action FilterAction[T]) cha
 		go filterParallel(input, output, group, action)
 	}
 
-	go filterClose(output, group)
+	go waitAndClose(output, group)
 
 	return output
 }
 
-func filterClose[T any](output chan<- T, group *sync.WaitGroup) {
+func waitAndClose[T any](output chan<- T, group *sync.WaitGroup) {
 	group.Wait()
 	close(output)
 }
 
 func filterParallel[T any](input <-chan T, output chan<- T, group *sync.WaitGroup, action FilterAction[T]) {
-	for i := range input {
-		if action(i) {
-			output <- i
+	for elem := range input {
+		if action(elem) {
+			output <- elem
 		}
 	}
 

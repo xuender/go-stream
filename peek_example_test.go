@@ -2,6 +2,7 @@ package stream_test
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/xuender/go-stream"
 )
@@ -22,4 +23,20 @@ func ExampleBaseStream_Peek() {
 	// 2
 	// 3
 	// 2
+}
+
+func ExampleParallelStream_Peek() {
+	count := stream.NewParallel(stream.Range2Channel(1, 3), 3).
+		Peek(func(num int) {
+			time.Sleep(time.Duration((3-num)*100) * time.Millisecond)
+			fmt.Println(num)
+		}).Count()
+
+	fmt.Println(count)
+
+	// Output:
+	// 2
+	// 1
+	// 0
+	// 3
 }
