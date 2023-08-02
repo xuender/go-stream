@@ -66,7 +66,7 @@ peek2: 4
 2
 ```
 
-[[play](https://go.dev/play/p/BsHl93sdVLw)]
+[[play](https://go.dev/play/p/LxULGyhWCi7)]
 
 ### Parallel
 
@@ -112,7 +112,7 @@ Output:
 ...
 ```
 
-[[play](https://go.dev/play/p/CLqmB-Ni9FC)]
+[[play](https://go.dev/play/p/wd5qrtmiwnS)]
 
 ### Map
 
@@ -147,7 +147,7 @@ Output:
 [2]
 ```
 
-[[play](https://go.dev/play/p/o5vbxJwqfdI)]
+[[play](https://go.dev/play/p/5QlT-D-Cv3V)]
 
 ### FlatMap
 
@@ -181,7 +181,7 @@ Output:
 [4]
 ```
 
-[[play](https://go.dev/play/p/1O-Krx0Ee6b)]
+[[play](https://go.dev/play/p/HXeeZOOkD2y)]
 
 ### Sorted
 
@@ -214,7 +214,7 @@ Output:
 7
 ```
 
-[[play](https://go.dev/play/p/WhobF2xUJKh)]
+[[play](https://go.dev/play/p/mSrDBfV_-d1)]
 
 ## 🛩 Functions
 
