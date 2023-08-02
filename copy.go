@@ -1,20 +1,16 @@
 package stream
 
+import "time"
+
 const _hundred = 100
 
 func Copy[T any](source *BaseStream[T]) chan T {
 	output1 := make(chan T, _hundred)
 	output2 := make(chan T, _hundred)
 
-	go func(input <-chan T) {
-		for i := range input {
-			output1 <- i
-			output2 <- i
-		}
+	go Distribute(source.C, output1, output2)
 
-		close(output1)
-		close(output2)
-	}(source.C)
+	time.Sleep(time.Microsecond)
 
 	source.C = output1
 

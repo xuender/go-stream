@@ -59,3 +59,15 @@ func range2Channel(output chan<- int, start, end, step int) {
 
 	close(output)
 }
+
+func Distribute[T any](input <-chan T, output1, output2 chan<- T) {
+	for elem := range input {
+		select {
+		case output1 <- elem:
+		case output2 <- elem:
+		}
+	}
+
+	close(output1)
+	close(output2)
+}
