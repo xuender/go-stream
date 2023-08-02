@@ -1,4 +1,13 @@
 
+2.0.4 / 2023-08-02
+==================
+
+* feat: add Count, remove Consume
+* chore: go.sum
+* doc: package
+* test: add limit test
+* feat: peek parallel
+
 2.0.3 / 2023-08-02
 ==================
 
