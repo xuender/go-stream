@@ -27,7 +27,7 @@ func ExampleBaseStream_ForEach() {
 func ExampleParallelStream_ForEach() {
 	stream.NewParallel(stream.Range2Channel(1, 3), 3).
 		ForEach(func(num int) {
-			time.Sleep(time.Duration(3-num) * time.Millisecond)
+			time.Sleep(time.Duration((3-num)*100) * time.Millisecond)
 			fmt.Println(num)
 		})
 
