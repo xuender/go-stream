@@ -241,7 +241,7 @@ Output:
 | Map | Intermediate operations, Function | √ |
 | FlatMap | Intermediate operations, Function | √ |
 
-## 🛩 License
+## 📝 License
 
 © ender, 2023~time.Now
 
