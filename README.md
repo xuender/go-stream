@@ -88,10 +88,10 @@ func main() {
     Parallel(100).
     Filter(func(num int) bool { return num%7 == 0 }).
     ForEach(func(num int) {
-      dur := time.Duration(rand.Intn(1000))
+      dur := time.Duration(rand.Intn(1000)) * time.Millisecond
 
-      time.Sleep(time.Millisecond * dur)
-      fmt.Printf("%d\t%dms\n", num, dur)
+      time.Sleep(dur)
+      fmt.Printf("%d\t%s\n", num, dur)
     })
 }
 ```
@@ -99,20 +99,22 @@ func main() {
 Output:
 
 ```shell
-322     0ms  
-651     2ms  
-483     2ms  
-182     15ms 
-266     26ms 
-567     33ms 
-742     10ms 
-175     47ms 
-476     59ms 
-7       59ms 
+623     2ms
+497     2ms
+273     15ms
+252     26ms
+616     33ms
+756     10ms
+91      47ms
+7       59ms
+21      59ms
+602     59ms
+350     78ms
+28      81ms
 ...
 ```
 
-[[play](https://go.dev/play/p/wd5qrtmiwnS)]
+[[play](https://go.dev/play/p/S23mcPB_URv)]
 
 ### Map
 

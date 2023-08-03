@@ -13,9 +13,9 @@ func main() {
 		Parallel(100).
 		Filter(func(num int) bool { return num%7 == 0 }).
 		ForEach(func(num int) {
-			dur := time.Duration(rand.Intn(1000))
+			dur := time.Duration(rand.Intn(1000)) * time.Millisecond
 
-			time.Sleep(time.Millisecond * dur)
-			fmt.Printf("%d\t%dms\n", num, dur)
+			time.Sleep(dur)
+			fmt.Printf("%d\t%s\n", num, dur)
 		})
 }
