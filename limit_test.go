@@ -4,7 +4,12 @@ import (
 	"testing"
 
 	"github.com/xuender/go-stream"
+	"go.uber.org/goleak"
 )
+
+func TestMain(m *testing.M) {
+	goleak.VerifyTestMain(m)
+}
 
 func TestLimit(t *testing.T) {
 	t.Parallel()
