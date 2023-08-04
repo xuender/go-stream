@@ -1,5 +1,6 @@
 [linters]
 disable = [
+	"golint",
 	"depguard",
 	"ireturn",
 	"wastedassign",
@@ -10,11 +11,9 @@ disable = [
 	"rowserrcheck",
 	"noctx",
 	"sqlclosecheck",
-	"staticcheck",
 	"structcheck",
 	"gosimple",
 	"nilerr",
-	"golint",
 	"interfacer",
 	"bodyclose",
 	"contextcheck",
