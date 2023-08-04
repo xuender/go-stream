@@ -22,16 +22,6 @@ func Filter[T any](input <-chan T, action FilterAction[T]) chan T {
 	return output
 }
 
-func filter[T any](input <-chan T, output chan<- T, action FilterAction[T]) {
-	for elem := range input {
-		if action(elem) {
-			output <- elem
-		}
-	}
-
-	close(output)
-}
-
 // Filter returns a stream consisting of the elements of this stream that match
 // the given action, parallel.
 func (p *ParallelStream[T]) Filter(action FilterAction[T]) *ParallelStream[T] {
@@ -57,8 +47,13 @@ func FilterParallel[T any](input <-chan T, size int, action FilterAction[T]) cha
 	return output
 }
 
-func waitAndClose[T any](output chan<- T, group *sync.WaitGroup) {
-	group.Wait()
+func filter[T any](input <-chan T, output chan<- T, action FilterAction[T]) {
+	for elem := range input {
+		if action(elem) {
+			output <- elem
+		}
+	}
+
 	close(output)
 }
 
@@ -70,4 +65,9 @@ func filterParallel[T any](input <-chan T, output chan<- T, group *sync.WaitGrou
 	}
 
 	group.Done()
+}
+
+func waitAndClose[T any](output chan<- T, group *sync.WaitGroup) {
+	group.Wait()
+	close(output)
 }

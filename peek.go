@@ -22,15 +22,6 @@ func Peek[T any](input <-chan T, action Action[T]) chan T {
 	return output
 }
 
-func peek[T any](input <-chan T, output chan<- T, action Action[T]) {
-	for elem := range input {
-		action(elem)
-		output <- elem
-	}
-
-	close(output)
-}
-
 func (p *ParallelStream[T]) Peek(action Action[T]) *ParallelStream[T] {
 	p.C = PeekParallel(p.C, p.Size, action)
 
@@ -50,6 +41,15 @@ func PeekParallel[T any](input <-chan T, size int, action Action[T]) chan T {
 	go waitAndClose(output, group)
 
 	return output
+}
+
+func peek[T any](input <-chan T, output chan<- T, action Action[T]) {
+	for elem := range input {
+		action(elem)
+		output <- elem
+	}
+
+	close(output)
 }
 
 func peekParallel[T any](input <-chan T, output chan<- T, group *sync.WaitGroup, action Action[T]) {

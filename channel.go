@@ -1,19 +1,25 @@
 package stream
 
-func Slice2Channel[T any](elems ...T) chan T {
-	output := make(chan T)
+func Count[T any](input <-chan T) int {
+	count := 0
 
-	go slice2Channel(output, elems)
-
-	return output
-}
-
-func slice2Channel[T any](output chan<- T, elems []T) {
-	for _, elem := range elems {
-		output <- elem
+	for range input {
+		count++
 	}
 
-	close(output)
+	return count
+}
+
+func Distribute[T any](input <-chan T, output1, output2 chan<- T) {
+	for elem := range input {
+		select {
+		case output1 <- elem:
+		case output2 <- elem:
+		}
+	}
+
+	close(output1)
+	close(output2)
 }
 
 func Range2Channel(length int) chan int {
@@ -52,6 +58,14 @@ func RangeWithSteps2Channel(start, end, step int) chan int {
 	return output
 }
 
+func Slice2Channel[T any](elems ...T) chan T {
+	output := make(chan T)
+
+	go slice2Channel(output, elems)
+
+	return output
+}
+
 func range2Channel(output chan<- int, start, end, step int) {
 	for i := start; (step > 0 && i < end) || (step < 0 && i > end); i += step {
 		output <- i
@@ -60,24 +74,10 @@ func range2Channel(output chan<- int, start, end, step int) {
 	close(output)
 }
 
-func Distribute[T any](input <-chan T, output1, output2 chan<- T) {
-	for elem := range input {
-		select {
-		case output1 <- elem:
-		case output2 <- elem:
-		}
+func slice2Channel[T any](output chan<- T, elems []T) {
+	for _, elem := range elems {
+		output <- elem
 	}
 
-	close(output1)
-	close(output2)
-}
-
-func Count[T any](input <-chan T) int {
-	count := 0
-
-	for range input {
-		count++
-	}
-
-	return count
+	close(output)
 }
