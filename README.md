@@ -1,12 +1,12 @@
 # go-stream
 
-[![GoCI](https://github.com/xuender/go-stream/workflows/Go/badge.svg)](https://github.com/xuender/go-stream/actions)
-[![Go Report Card](https://goreportcard.com/badge/github.com/xuender/go-stream)](https://goreportcard.com/report/github.com/xuender/go-stream)
-[![codecov](https://codecov.io/gh/xuender/go-stream/branch/master/graph/badge.svg?token=KCNTIM7DLH)](https://codecov.io/gh/xuender/go-stream)
-[![GoDoc](https://godoc.org/github.com/xuender/go-stream?status.svg)](https://pkg.go.dev/github.com/xuender/go-stream)
-[![GitHub license](https://img.shields.io/github/license/xuender/go-stream)](https://github.com/xuender/go-stream/blob/main/LICENSE)
-[![GitHub issues](https://img.shields.io/github/issues/xuender/go-stream)](https://github.com/xuender/go-stream/issues)
-[![GitHub stars](https://img.shields.io/github/stars/xuender/go-stream)](https://github.com/xuender/gostream/stargazers)
+[![GoCI][action-svg]][action-url]
+[![Go Report Card][goreport-svg]][goreport-url]
+[![codecov][codecov-svg]][codecov-url]
+[![GoDoc][godoc-svg]][godoc-url]
+[![GitHub license][license-svg]][license-url]
+[![GitHub issues][issues-svg]][issues-url]
+[![GitHub stars][stars-svg]][stars-url]
 
 Stream Collections for Go. Inspired in Java 8 Streams.
 
@@ -248,3 +248,24 @@ Output:
 © ender, 2023~time.Now
 
 [MIT LICENSE](https://github.com/xuender/go-stream/blob/master/LICENSE)
+
+[action-url]: https://github.com/xuender/go-stream/actions
+[action-svg]: https://github.com/xuender/go-stream/workflows/Go/badge.svg
+
+[goreport-url]: https://goreportcard.com/report/github.com/xuender/go-stream
+[goreport-svg]: https://goreportcard.com/badge/github.com/xuender/go-stream
+
+[codecov-url]: https://codecov.io/gh/xuender/go-stream
+[codecov-svg]: https://codecov.io/gh/xuender/go-stream/branch/master/graph/badge.svg?token=KCNTIM7DLH
+
+[godoc-url]: https://pkg.go.dev/github.com/xuender/go-stream
+[godoc-svg]: https://godoc.org/github.com/xuender/go-stream?status.svg
+
+[license-url]: https://github.com/xuender/go-stream/blob/main/LICENSE
+[license-svg]: https://img.shields.io/github/license/xuender/go-stream
+
+[issues-url]: https://github.com/xuender/go-stream/issues
+[issues-svg]: https://img.shields.io/github/issues/xuender/go-stream
+
+[stars-url]: https://github.com/xuender/gostream/stargazers
+[stars-svg]: https://img.shields.io/github/stars/xuender/go-stream
